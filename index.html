@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Pesquisa BOX+MD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --g1: #1B3D2F;
+      --g2: #2D6A4F;
+      --g3: #52B788;
+      --g4: #95D5B2;
+      --g5: #D1FAE5;
+      --bg: #EDECEA;
+      --card: #FFFFFF;
+      --text: #111827;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 28px 32px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+    .hdr h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
+    .hdr p  { color: var(--muted); font-size: 0.875rem; margin-top: 5px; }
+    .hdr-btns { display: flex; gap: 10px; align-items: center; }
+
+    .btn-fill {
+      background: var(--g1); color: #fff; border: none;
+      padding: 10px 20px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; display: flex; align-items: center; gap: 6px;
+    }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1.5px solid #D1D5DB; padding: 10px 20px;
+      border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+
+    /* ── City Tabs ── */
+    .city-tabs {
+      display: flex; gap: 8px; margin-bottom: 20px;
+      flex-wrap: wrap; align-items: center;
+    }
+    .city-tab {
+      padding: 7px 16px; border-radius: 100px;
+      border: 1.5px solid #D1D5DB;
+      background: transparent; color: var(--muted);
+      font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .city-tab:hover { border-color: var(--g2); color: var(--g2); }
+    .city-tab.active { background: var(--g1); color: #fff; border-color: var(--g1); }
+    .city-tab-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+
+    /* ── Dashboard fade transition ── */
+    .dash-content { transition: opacity 0.22s ease; }
+    .dash-content.fading { opacity: 0; }
+
+    /* ── Stats Row ── */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+
+    .scard { background: var(--card); border-radius: 18px; padding: 22px; position: relative; }
+    .scard.dark { background: var(--g1); color: #fff; }
+
+    .scard-icon {
+      position: absolute; top: 18px; right: 18px;
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+    }
+    .scard.dark .scard-icon { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+    .scard:not(.dark) .scard-icon { border: 1.5px solid #D1D5DB; color: var(--text); }
+
+    .scard-label { font-size: 0.8rem; font-weight: 500; margin-bottom: 14px; }
+    .scard.dark .scard-label { color: rgba(255,255,255,0.8); }
+
+    .scard-num { font-size: 2.6rem; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 12px; }
+
+    .scard-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
+    }
+    .scard.dark .scard-badge { background: rgba(255,255,255,0.18); color: #fff; }
+    .scard:not(.dark) .scard-badge { background: var(--g5); color: #065F46; }
+    .scard-note { font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
+
+    /* ── Grids ── */
+    .mgrid { display: grid; grid-template-columns: 1.35fr 0.75fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .bgrid { display: grid; grid-template-columns: 1.2fr 0.95fr 0.85fr; gap: 14px; }
+
+    .card { background: var(--card); border-radius: 18px; padding: 22px; }
+    .card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 18px; }
+    .card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .card-hdr .card-title { margin-bottom: 0; }
+
+    .btn-sm {
+      background: transparent; border: 1.5px solid #D1D5DB;
+      border-radius: 100px; padding: 5px 13px;
+      font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+
+    /* ── Bar Chart ── */
+    .chart-wrap { display: flex; align-items: flex-end; gap: 8px; height: 148px; margin-top: 6px; }
+    .bar-col {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; height: 100%; justify-content: flex-end;
+      gap: 6px; position: relative;
+    }
+    .bar-body {
+      width: 100%; border-radius: 8px 8px 0 0; position: relative;
+      transition: height 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+    }
+    .bar-body.striped {
+      background: repeating-linear-gradient(-45deg, #E5E7EB, #E5E7EB 3px, #F9FAFB 3px, #F9FAFB 9px);
+    }
+    .bar-tag {
+      position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+      font-size: 0.65rem; font-weight: 700;
+      background: #fff; border: 1px solid #E5E7EB;
+      padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .bar-lbl { font-size: 0.62rem; color: var(--muted); font-weight: 500; text-align: center; line-height: 1.3; }
+
+    /* Tooltip */
+    .bar-tooltip {
+      display: none; position: absolute; bottom: calc(100% + 32px); left: 50%;
+      transform: translateX(-50%);
+      background: #111827; color: #fff;
+      font-size: 0.7rem; font-weight: 500;
+      padding: 5px 10px; border-radius: 8px; white-space: nowrap;
+      pointer-events: none; z-index: 10;
+    }
+    .bar-col:hover .bar-tooltip { display: block; }
+
+    /* ── Insight card ── */
+    .insight-num { font-size: 4rem; font-weight: 800; color: var(--g1); letter-spacing: -3px; line-height: 1; margin-bottom: 4px; }
+    .insight-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+    .insight-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 24px; line-height: 1.55; }
+    .btn-action {
+      background: var(--g1); color: #fff; border: none;
+      border-radius: 100px; padding: 13px 18px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      width: 100%; font-family: inherit;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+
+    /* ── Motivos list ── */
+    .motivo { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+    .motivo:last-child { border-bottom: none; }
+    .m-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+    .m-name { font-size: 0.8rem; font-weight: 600; }
+    .m-sub  { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    .m-pct  { font-size: 0.85rem; font-weight: 700; color: var(--g1); flex-shrink: 0; }
+
+    /* ── Bottom-left: Perfis or Atividades ── */
+    .row-item { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+    .row-item:last-child { border-bottom: none; }
+    .p-av { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .row-name { font-size: 0.8rem; font-weight: 600; }
+    .row-sub  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+
+    .badge { font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; white-space: nowrap; }
+    .bg-g { background: #D1FAE5; color: #065F46; }
+    .bg-y { background: #FEF3C7; color: #92400E; }
+    .bg-r { background: #FEE2E2; color: #991B1B; }
+
+    /* Progress bar rows (for city atividades view) */
+    .prog-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .prog-row:last-child { border-bottom: none; }
+    .prog-icon { font-size: 1rem; width: 28px; text-align: center; flex-shrink: 0; }
+    .prog-label { font-size: 0.78rem; font-weight: 600; width: 140px; flex-shrink: 0; }
+    .prog-bar-wrap { flex: 1; height: 6px; background: #F3F4F6; border-radius: 10px; overflow: hidden; }
+    .prog-bar { height: 100%; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    .prog-pct { font-size: 0.75rem; font-weight: 700; color: var(--g1); width: 32px; text-align: right; flex-shrink: 0; }
+
+    /* ── Donut ── */
+    .donut-wrap { display: flex; flex-direction: column; align-items: center; }
+    .donut-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 16px; justify-content: center; }
+    .leg-item { display: flex; align-items: center; gap: 5px; font-size: 0.7rem; color: var(--muted); }
+    .leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Dark Card ── */
+    .dcard {
+      background: var(--g1); border-radius: 18px; padding: 22px;
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .dcard::before {
+      content: ''; position: absolute;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(255,255,255,0.04); top: -70px; right: -60px;
+    }
+    .dcard::after {
+      content: ''; position: absolute;
+      width: 170px; height: 170px; border-radius: 50%;
+      background: rgba(255,255,255,0.03); bottom: -70px; left: -45px;
+    }
+    .dcard-label { font-size: 0.85rem; font-weight: 500; opacity: 0.75; margin-bottom: 14px; position: relative; z-index: 1; }
+    .dcard-num   { font-size: 2.9rem; font-weight: 800; letter-spacing: -2px; line-height: 1; position: relative; z-index: 1; }
+    .dcard-unit  { font-size: 0.95rem; font-weight: 400; opacity: 0.6; margin-top: 4px; position: relative; z-index: 1; }
+    .dcard-divider { height: 1px; background: rgba(255,255,255,0.12); margin: 16px 0; position: relative; z-index: 1; }
+    .dcard-row { display: flex; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
+    .dcard-stat { text-align: center; }
+    .dcard-stat-num  { font-size: 1.4rem; font-weight: 800; color: var(--g4); line-height: 1; }
+    .dcard-stat-desc { font-size: 0.66rem; opacity: 0.65; margin-top: 3px; line-height: 1.4; }
+    .dcard-btns { display: flex; gap: 10px; margin-top: 18px; position: relative; z-index: 1; }
+    .dcb { width: 42px; height: 42px; border-radius: 50%; border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .dcb-pause { background: rgba(255,255,255,0.18); color: #fff; }
+    .dcb-stop  { background: #EF4444; color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <h1>Dashboard</h1>
+    <p>Pesquisa habitacional com moradores de apartamentos no Nordeste do Brasil.</p>
+  </div>
+  <div class="hdr-btns">
+    <button class="btn-fill">＋ Filtrar Dados</button>
+    <button class="btn-outline">Exportar</button>
+  </div>
+</div>
+
+<!-- CITY TABS -->
+<div class="city-tabs" id="cityTabs">
+  <button class="city-tab active" data-city="total">Visão Geral</button>
+  <div class="city-tab-sep"></div>
+  <button class="city-tab" data-city="aracaju">Aracaju</button>
+  <button class="city-tab" data-city="joaopessoa">João Pessoa</button>
+  <button class="city-tab" data-city="maceio">Maceió</button>
+  <button class="city-tab" data-city="natal">Natal</button>
+  <button class="city-tab" data-city="recife">Recife</button>
+  <button class="city-tab" data-city="salvador">Salvador</button>
+  <button class="city-tab" data-city="fortaleza">Fortaleza</button>
+</div>
+
+<!-- DASHBOARD CONTENT (all dynamic) -->
+<div class="dash-content" id="dashContent">
+
+  <!-- STATS ROW -->
+  <div class="stats">
+    <div class="scard dark" id="sc1">
+      <div class="scard-icon">↗</div>
+      <div class="scard-label" id="sc1-label"></div>
+      <div class="scard-num"  id="sc1-num"></div>
+      <span class="scard-badge" id="sc1-badge"></span>
+    </div>
+    <div class="scard" id="sc2">
+      <div class="scard-icon">↗</div>
+      <div class="scard-label" id="sc2-label"></div>
+      <div class="scard-num"  id="sc2-num"></div>
+      <span class="scard-badge" id="sc2-badge"></span>
+    </div>
+    <div class="scard" id="sc3">
+      <div class="scard-icon">↗</div>
+      <div class="scard-label" id="sc3-label"></div>
+      <div class="scard-num"  id="sc3-num"></div>
+      <span class="scard-badge" id="sc3-badge"></span>
+    </div>
+    <div class="scard" id="sc4">
+      <div class="scard-icon">↗</div>
+      <div class="scard-label" id="sc4-label"></div>
+      <div class="scard-num"  id="sc4-num"></div>
+      <p class="scard-note"   id="sc4-note"></p>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="mgrid">
+    <!-- Bar chart -->
+    <div class="card">
+      <div class="card-title" id="barTitle"></div>
+      <div class="chart-wrap" id="barChart"></div>
+    </div>
+
+    <!-- Insight card -->
+    <div class="card">
+      <div class="card-title">Destaque da Pesquisa</div>
+      <div class="insight-num"   id="insightPct"></div>
+      <div class="insight-title" id="insightTitle"></div>
+      <div class="insight-sub"   id="insightSub"></div>
+      <button class="btn-action">📊 Ver Análise Completa</button>
+    </div>
+
+    <!-- Motivos list -->
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-title">Motivos de Compra</div>
+        <button class="btn-sm">＋ Ver mais</button>
+      </div>
+      <div id="motivosList"></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM GRID -->
+  <div class="bgrid">
+
+    <!-- Bottom-left: Perfis (total) or Atividades (city) -->
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-title" id="bottomLeftTitle"></div>
+        <button class="btn-sm" id="bottomLeftBtn"></button>
+      </div>
+      <div id="bottomLeftContent"></div>
+    </div>
+
+    <!-- Donut: Cômodo Favorito -->
+    <div class="card">
+      <div class="card-title">Cômodo Favorito</div>
+      <div class="donut-wrap">
+        <svg id="donut" width="172" height="172" viewBox="0 0 172 172"></svg>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+    </div>
+
+    <!-- Dark card -->
+    <div class="dcard">
+      <div class="dcard-label">Metragem Média</div>
+      <div class="dcard-num" id="dcMetragem"></div>
+      <div class="dcard-unit">metros quadrados</div>
+      <div class="dcard-divider"></div>
+      <div class="dcard-row" id="dcRow"></div>
+      <div class="dcard-btns">
+        <button class="dcb dcb-pause">⏸</button>
+        <button class="dcb dcb-stop">⏹</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /dash-content -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────────────────────
+const DATA = {
+  total: {
+    name: 'Nordeste — Total',
+    n: 1000,
+    metragem: '101,76',
+    noite: 66,
+    lazer: 57,
+    seguranca: 51,
+    mainSentimento: { label: 'Porto Seguro', pct: 51 },
+    sentimentos: [51, 18, 10, 7, 6, 3, 3],      // P4 — 7 sentimentos
+    comodos: [47, 31, 8, 8, 6],                  // P5 — Quarto, Sala, Cozinha, Varanda, Outros
+    motivos: [51, 37, 33, 27, 23],               // P9
+    atividades: [57, 24, 9, 5, 2],               // P8
+    isTotal: true,
+  },
+  aracaju: {
+    name: 'Aracaju',
+    n: 49,
+    metragem: '99,48',
+    noite: 63,
+    lazer: 61,
+    seguranca: 47,
+    mainSentimento: { label: 'Aconchego', pct: 22 },
+    sentimentos: [39, 22, 12, 6, 6, 2, 2],
+    comodos: [53, 29, 10, 4, 4],
+    motivos: [47, 39, 43, 16, 12],
+    atividades: [61, 12, 10, 6, 6],
+  },
+  joaopessoa: {
+    name: 'João Pessoa',
+    n: 72,
+    metragem: '96,82',
+    noite: 72,
+    lazer: 67,
+    seguranca: 44,
+    mainSentimento: { label: 'Porto Seguro', pct: 47 },
+    sentimentos: [47, 13, 14, 11, 4, 6, 3],
+    comodos: [33, 43, 11, 10, 3],
+    motivos: [44, 51, 36, 22, 24],
+    atividades: [67, 14, 11, 4, 1],
+  },
+  maceio: {
+    name: 'Maceió',
+    n: 73,
+    metragem: '98,11',
+    noite: 59,
+    lazer: 49,
+    seguranca: 42,
+    mainSentimento: { label: 'Porto Seguro', pct: 52 },
+    sentimentos: [52, 19, 15, 3, 5, 0, 0],
+    comodos: [42, 40, 8, 5, 5],
+    motivos: [42, 42, 30, 25, 21],
+    atividades: [49, 32, 7, 7, 3],
+  },
+  natal: {
+    name: 'Natal',
+    n: 70,
+    metragem: '108,72',
+    noite: 57,
+    lazer: 54,
+    seguranca: 53,
+    mainSentimento: { label: 'Porto Seguro', pct: 57 },
+    sentimentos: [57, 13, 9, 10, 4, 1, 3],
+    comodos: [56, 19, 6, 10, 9],
+    motivos: [53, 40, 39, 23, 14],
+    atividades: [54, 21, 7, 10, 3],
+  },
+  recife: {
+    name: 'Recife',
+    n: 218,
+    metragem: '98,67',
+    noite: 66,
+    lazer: 56,
+    seguranca: 56,
+    mainSentimento: { label: 'Porto Seguro', pct: 51 },
+    sentimentos: [51, 20, 8, 5, 7, 3, 1],
+    comodos: [41, 33, 8, 8, 10],
+    motivos: [56, 31, 33, 25, 23],
+    atividades: [56, 26, 11, 4, 3],
+  },
+  salvador: {
+    name: 'Salvador',
+    n: 311,
+    metragem: '103,93',
+    noite: 69,
+    lazer: 53,
+    seguranca: 48,
+    mainSentimento: { label: 'Porto Seguro', pct: 54 },
+    sentimentos: [54, 20, 10, 5, 5, 2, 2],
+    comodos: [50, 29, 7, 7, 7],
+    motivos: [48, 38, 32, 31, 24],
+    atividades: [53, 26, 9, 5, 3],
+  },
+  fortaleza: {
+    name: 'Fortaleza',
+    n: 207,
+    metragem: '102,87',
+    noite: 66,
+    lazer: 62,
+    seguranca: 56,
+    mainSentimento: { label: 'Recarga', pct: 12 },
+    sentimentos: [45, 16, 9, 12, 6, 3, 6],
+    comodos: [48, 27, 9, 9, 7],
+    motivos: [56, 33, 30, 30, 27],
+    atividades: [62, 21, 8, 5, 1],
+  },
+};
+
+const MOTIVOS_META = [
+  { label: 'Busca por Segurança',     icon: '🔒', bg: '#DCFCE7' },
+  { label: 'Necessidade de Espaço',   icon: '📐', bg: '#DBEAFE' },
+  { label: 'Estabilidade Financeira', icon: '💰', bg: '#FEF9C3' },
+  { label: 'Proximidade ao Trabalho', icon: '📍', bg: '#FCE7F3' },
+  { label: 'Novo Estilo de Vida',     icon: '🌿', bg: '#EDE9FE' },
+];
+
+const SENT_LABELS = ['Porto Seg.', 'Aconchego', 'Realização', 'Recarga', 'Identidade', 'Praticidade', 'Social.'];
+const SENT_COLORS = ['#1B3D2F', '#2D6A4F', '#52B788', '#95D5B2', null, null, null];
+
+const COMODO_LABELS = ['Quarto', 'Sala', 'Cozinha', 'Varanda', 'Outros'];
+const COMODO_COLORS = ['#1B3D2F', '#52B788', '#95D5B2', '#B7DFC2', '#D1D5DB'];
+
+const ATIVIDADES_META = [
+  { label: 'Descanso e Lazer',     icon: '🛋️', color: '#1B3D2F' },
+  { label: 'Tarefas Domésticas',   icon: '🧹', color: '#2D6A4F' },
+  { label: 'Trabalho em Casa',     icon: '💼', color: '#52B788' },
+  { label: 'Sem Rotina Definida',  icon: '🎲', color: '#95D5B2' },
+  { label: 'Dormir',               icon: '😴', color: '#D1D5DB' },
+];
+
+const PERFIS = [
+  { initials: 'BV', label: 'Bon Vivant do Conforto',   n: 272, pct: '27,2', bg: '#1B3D2F', badge: 'bg-g', badgeText: 'Maior grupo' },
+  { initials: 'BA', label: 'Bairrista Afetivo',         n: 234, pct: '23,4', bg: '#2D6A4F', badge: 'bg-y', badgeText: 'Em alta' },
+  { initials: 'NC', label: 'Novidadeiro Criterioso',    n: 182, pct: '18,2', bg: '#52B788', badge: 'bg-y', badgeText: 'Em alta' },
+  { initials: 'EE', label: 'Econômico Essencialista',   n: 176, pct: '17,6', bg: '#95D5B2', bgText: '#1B3D2F', badge: 'bg-r', badgeText: 'Analisar' },
+  { initials: 'NR', label: 'Novo Rico Ostentação',      n: 136, pct: '13,6', bg: '#D1FAE5', bgText: '#065F46', badge: 'bg-r', badgeText: 'Menor grupo' },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderStats(d) {
+  if (d.isTotal) {
+    setText('sc1-label', 'Total de Respondentes');
+    setText('sc1-num',   '1.000');
+    setText('sc1-badge', '↑ Nordeste do Brasil');
+
+    setText('sc2-label', 'Cidades Pesquisadas');
+    setText('sc2-num',   '7');
+    setText('sc2-badge', 'SSA · REC · FOR · ...');
+
+    setText('sc3-label', 'Perfis Comportamentais');
+    setText('sc3-num',   '5');
+    setText('sc3-badge', 'Mapeados na pesquisa');
+
+    setText('sc4-label', 'Perguntas do Survey');
+    setText('sc4-num',   '35+');
+    setText('sc4-note',  'Base não ponderada: n=1.000');
+  } else {
+    setText('sc1-label', `Respondentes em ${d.name}`);
+    setText('sc1-num',   d.n.toString());
+    setText('sc1-badge', '↑ ' + d.name);
+
+    setText('sc2-label', 'Metragem Média');
+    setText('sc2-num',   d.metragem);
+    setText('sc2-badge', 'metros quadrados');
+
+    setText('sc3-label', 'Passam mais tempo à noite');
+    setText('sc3-num',   d.noite + '%');
+    setText('sc3-badge', 'da amostra da cidade');
+
+    setText('sc4-label', 'Descanso e Lazer em casa');
+    setText('sc4-num',   d.lazer + '%');
+    setText('sc4-note',  'atividade principal em casa');
+  }
+}
+
+function renderBarChart(d) {
+  const wrap = document.getElementById('barChart');
+  wrap.innerHTML = '';
+
+  let bars;
+  if (d.isTotal) {
+    document.getElementById('barTitle').textContent = 'Distribuição por Cidade';
+    bars = [
+      { label: 'AJU', pct: 4.9,  tooltip: 'Aracaju: n=49 (4,9%)',     style: 'striped' },
+      { label: 'JPA', pct: 7.2,  tooltip: 'João Pessoa: n=72 (7,2%)', style: 'striped' },
+      { label: 'MCZ', pct: 7.3,  tooltip: 'Maceió: n=73 (7,3%)',      style: 'striped' },
+      { label: 'NAT', pct: 7.0,  tooltip: 'Natal: n=70 (7,0%)',       style: 'striped' },
+      { label: 'REC', pct: 21.8, tooltip: 'Recife: n=218 (21,8%)',    style: 'medium' },
+      { label: 'SSA', pct: 31.1, tooltip: 'Salvador: n=311 (31,1%)',  style: 'dark', tag: true },
+      { label: 'FOR', pct: 20.7, tooltip: 'Fortaleza: n=207 (20,7%)', style: 'light' },
+    ];
+  } else {
+    document.getElementById('barTitle').textContent = 'Sentimentos sobre o Lar';
+    const colors = ['dark', 'medium', 'light', 'pale', 'striped', 'striped', 'striped'];
+    const maxPct = Math.max(...d.sentimentos);
+    bars = SENT_LABELS.map((lbl, i) => ({
+      label: lbl,
+      pct: d.sentimentos[i],
+      tooltip: `${lbl}: ${d.sentimentos[i]}%`,
+      style: colors[i],
+      tag: d.sentimentos[i] === maxPct,
+    }));
+  }
+
+  const COLOR_MAP = { dark: '#1B3D2F', medium: '#2D6A4F', light: '#52B788', pale: '#95D5B2' };
+  const maxPct = Math.max(...bars.map(b => b.pct));
+  const MAX_H  = 140;
+
+  bars.forEach(bar => {
+    const targetH = maxPct > 0 ? Math.round((bar.pct / maxPct) * MAX_H) : 0;
+
+    const col = document.createElement('div');
+    col.className = 'bar-col';
+
+    const tip = document.createElement('div');
+    tip.className = 'bar-tooltip';
+    tip.textContent = bar.tooltip;
+    col.appendChild(tip);
+
+    const body = document.createElement('div');
+    body.className = 'bar-body' + (bar.style === 'striped' ? ' striped' : '');
+    body.style.height = '0px';
+    if (bar.style !== 'striped') body.style.background = COLOR_MAP[bar.style] || '#95D5B2';
+
+    if (bar.tag) {
+      const tag = document.createElement('div');
+      tag.className = 'bar-tag';
+      tag.textContent = bar.pct + '%';
+      body.appendChild(tag);
+    }
+
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-lbl';
+    lbl.textContent = bar.label;
+
+    col.appendChild(body);
+    col.appendChild(lbl);
+    wrap.appendChild(col);
+
+    setTimeout(() => { body.style.height = targetH + 'px'; }, 80);
+  });
+}
+
+function renderInsight(d) {
+  const s = d.mainSentimento;
+  setText('insightPct',   s.pct + '%');
+  setText('insightTitle', s.label);
+
+  const subs = {
+    'Porto Seguro': 'Sentem o lar como um lugar de paz e tranquilidade — sentimento #1.',
+    'Aconchego':    'Sentem o lar como o lugar do momento consigo mesmo — destaque desta cidade.',
+    'Recarga':      'Renovam a energia após o trabalho — acima da média nacional de 7%.',
+    'Realização':   'Relacionam o lar à segurança de ter um bem no próprio nome.',
+  };
+  setText('insightSub', subs[s.label] || 'Sentimento predominante nesta cidade.');
+}
+
+function renderMotivos(d) {
+  const list = document.getElementById('motivosList');
+  list.innerHTML = '';
+  MOTIVOS_META.forEach((m, i) => {
+    const pct = d.motivos[i];
+    const div = document.createElement('div');
+    div.className = 'motivo';
+    div.innerHTML = `
+      <div class="m-icon" style="background:${m.bg}">${m.icon}</div>
+      <div style="flex:1">
+        <div class="m-name">${m.label}</div>
+        <div class="m-sub">${pct}% dos respondentes</div>
+      </div>
+      <div class="m-pct">${pct}%</div>`;
+    list.appendChild(div);
+  });
+}
+
+function renderBottomLeft(d) {
+  const title   = document.getElementById('bottomLeftTitle');
+  const btn     = document.getElementById('bottomLeftBtn');
+  const content = document.getElementById('bottomLeftContent');
+  content.innerHTML = '';
+
+  if (d.isTotal) {
+    title.textContent = 'Perfis Comportamentais';
+    btn.textContent   = '＋ Comparar';
+    PERFIS.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'row-item';
+      div.innerHTML = `
+        <div class="p-av" style="background:${p.bg};color:${p.bgText || '#fff'}">${p.initials}</div>
+        <div style="flex:1;min-width:0">
+          <div class="row-name">${p.label}</div>
+          <div class="row-sub">${p.n} respondentes · ${p.pct}% do total</div>
+        </div>
+        <span class="badge ${p.badge}">${p.badgeText}</span>`;
+      content.appendChild(div);
+    });
+  } else {
+    title.textContent = 'Rotina em Casa';
+    btn.textContent   = '＋ Detalhar';
+    const maxPct = Math.max(...d.atividades);
+    ATIVIDADES_META.forEach((a, i) => {
+      const pct = d.atividades[i];
+      const bar = document.createElement('div');
+      bar.className = 'prog-row';
+      bar.innerHTML = `
+        <div class="prog-icon">${a.icon}</div>
+        <div class="prog-label">${a.label}</div>
+        <div class="prog-bar-wrap">
+          <div class="prog-bar" style="width:0%;background:${a.color}" data-w="${(pct/maxPct*100).toFixed(1)}"></div>
+        </div>
+        <div class="prog-pct">${pct}%</div>`;
+      content.appendChild(bar);
+    });
+    // Animate bars
+    setTimeout(() => {
+      content.querySelectorAll('.prog-bar').forEach(b => {
+        b.style.width = b.dataset.w + '%';
+      });
+    }, 80);
+  }
+}
+
+function renderDonut(d) {
+  const svg = document.getElementById('donut');
+  svg.innerHTML = '';
+  const legend = document.getElementById('donutLegend');
+  legend.innerHTML = '';
+
+  const cx = 86, cy = 86, R = 63, SW = 27;
+  const C  = 2 * Math.PI * R;
+
+  const segs = d.comodos.map((pct, i) => ({ pct, color: COMODO_COLORS[i] }));
+
+  // Background ring
+  const bg = mkCircle(svg, cx, cy, R, '#F3F4F6', SW);
+  svg.appendChild(bg);
+
+  let cum = 0;
+  segs.forEach(seg => {
+    if (seg.pct === 0) { cum += seg.pct; return; }
+    const dash = (seg.pct / 100) * C;
+    const c = mkCircle(svg, cx, cy, R, seg.color, SW);
+    c.setAttribute('stroke-dasharray', `${dash} ${C - dash}`);
+    c.setAttribute('transform', `rotate(${-90 + cum * 3.6}, ${cx}, ${cy})`);
+    svg.appendChild(c);
+    cum += seg.pct;
+  });
+
+  // Center text — biggest segment
+  const maxIdx = d.comodos.indexOf(Math.max(...d.comodos));
+  appendText(svg, cx, cy - 8,  d.comodos[maxIdx] + '%', '23', '700', '#111827');
+  appendText(svg, cx, cy + 11, COMODO_LABELS[maxIdx],   '10', '500', '#6B7280');
+
+  // Legend
+  COMODO_LABELS.forEach((lbl, i) => {
+    const item = document.createElement('div');
+    item.className = 'leg-item';
+    item.innerHTML = `<div class="leg-dot" style="background:${COMODO_COLORS[i]}"></div>${lbl} ${d.comodos[i]}%`;
+    legend.appendChild(item);
+  });
+}
+
+function renderDarkCard(d) {
+  setText('dcMetragem', d.metragem);
+  const row = document.getElementById('dcRow');
+  const stats = [
+    { num: d.noite + '%',  desc: 'passam mais<br>tempo à noite' },
+    { num: d.lazer + '%',  desc: 'descanso e<br>entretenimento' },
+    { num: d.seguranca + '%', desc: 'buscam<br>segurança' },
+  ];
+  row.innerHTML = stats.map(s => `
+    <div class="dcard-stat">
+      <div class="dcard-stat-num">${s.num}</div>
+      <div class="dcard-stat-desc">${s.desc}</div>
+    </div>`).join('');
+}
+
+// ─── SVG helpers ─────────────────────────────────────────────────────────────
+function mkCircle(svg, cx, cy, r, stroke, sw) {
+  const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
+  c.setAttribute('fill', 'none');
+  c.setAttribute('stroke', stroke);
+  c.setAttribute('stroke-width', sw);
+  return c;
+}
+function appendText(svg, x, y, txt, size, weight, fill) {
+  const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  t.setAttribute('x', x); t.setAttribute('y', y);
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'middle');
+  t.setAttribute('font-size', size);
+  t.setAttribute('font-weight', weight);
+  t.setAttribute('fill', fill);
+  t.setAttribute('font-family', 'Inter, sans-serif');
+  t.textContent = txt;
+  svg.appendChild(t);
+}
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN RENDER
+// ─────────────────────────────────────────────────────────────────────────────
+function renderDashboard(cityKey) {
+  const d    = DATA[cityKey];
+  const dash = document.getElementById('dashContent');
+
+  dash.classList.add('fading');
+
+  setTimeout(() => {
+    renderStats(d);
+    renderBarChart(d);
+    renderInsight(d);
+    renderMotivos(d);
+    renderBottomLeft(d);
+    renderDonut(d);
+    renderDarkCard(d);
+    dash.classList.remove('fading');
+  }, 220);
+}
+
+// ─── City tab clicks ──────────────────────────────────────────────────────────
+document.getElementById('cityTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.city-tab');
+  if (!tab) return;
+  document.querySelectorAll('.city-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderDashboard(tab.dataset.city);
+});
+
+// ─── Initial render ───────────────────────────────────────────────────────────
+renderDashboard('total');
+</script>
+</body>
+</html>
