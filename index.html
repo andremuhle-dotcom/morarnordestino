@@ -1620,13 +1620,11 @@ function renderMetragemPerfil() {
   METRAGEM_PERFIL.forEach(p => {
     const atualW = (p.atual / maxVal * 100).toFixed(1);
     const idealW = (p.ideal / maxVal * 100).toFixed(1);
-    const gap = p.ideal - p.atual;
     const row = document.createElement('div');
     row.style.cssText = 'margin-bottom:14px;';
     row.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+      <div style="margin-bottom:5px;">
         <div style="font-size:0.75rem;font-weight:700">${p.label}</div>
-        <div style="font-size:0.68rem;color:#065F46;font-weight:700;background:#D1FAE5;padding:2px 7px;border-radius:8px">+${gap}m²</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
         <div style="flex:1;background:#F3F4F6;border-radius:8px;overflow:hidden;">
