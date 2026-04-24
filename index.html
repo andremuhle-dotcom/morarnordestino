@@ -291,6 +291,59 @@
     /* Análise avançada grids */
     .agrid1 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 14px; }
     .agrid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+
+    /* ── Responsivo ── */
+    @media (max-width: 768px) {
+      body { padding: 18px 16px; }
+
+      .hdr h1 { font-size: 1.4rem; }
+      .hdr p  { font-size: 0.78rem; }
+
+      /* City tabs: scroll horizontal */
+      .city-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+      .city-tabs::-webkit-scrollbar { display: none; }
+      .city-tab { white-space: nowrap; }
+
+      /* Stats: 2×2 */
+      .stats { grid-template-columns: 1fr 1fr; }
+      .scard-num { font-size: 2rem; }
+
+      /* Main grid: coluna única */
+      .mgrid { grid-template-columns: 1fr; }
+
+      /* Bottom grid: coluna única */
+      .bgrid { grid-template-columns: 1fr; }
+
+      /* Avançada: coluna única */
+      .agrid1 { grid-template-columns: 1fr; }
+      .agrid2 { grid-template-columns: 1fr; }
+
+      /* Insight */
+      .insight-num { font-size: 2.8rem; }
+
+      /* Donut: centraliza */
+      .donut-wrap { align-items: center; }
+
+      /* Barras horizontais nos modais */
+      .hbar-lbl      { width: 80px; font-size: 0.7rem; }
+      .hbar-city-lbl { width: 90px; font-size: 0.7rem; }
+
+      /* Modal ocupa mais tela */
+      .modal { width: 96%; padding: 20px; max-height: 88vh; }
+
+      /* Prog label no Rotina */
+      .prog-label { width: 110px; font-size: 0.72rem; }
+
+      /* Dark card stat row */
+      .dcard-stat-num  { font-size: 1.1rem; }
+      .dcard-stat-desc { font-size: 0.6rem; }
+    }
+
+    @media (max-width: 480px) {
+      /* Stats: coluna única em telas muito pequenas */
+      .stats { grid-template-columns: 1fr; }
+      .scard-num { font-size: 2.4rem; }
+    }
   </style>
 </head>
 <body>
