@@ -265,6 +265,20 @@
     .motivos-extra { display: none; }
     .motivos-extra.visible { display: block; }
 
+    /* Local data badge */
+    .local-badge {
+      display: none; align-items: center; gap: 5px;
+      background: #F3F4F6; border-radius: 8px; padding: 4px 9px;
+      margin-bottom: 12px; font-size: 0.65rem; color: #6B7280; font-weight: 600;
+    }
+    .local-badge.visible { display: inline-flex; }
+    .local-badge-dark {
+      display: none; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.12); border-radius: 8px; padding: 4px 9px;
+      margin-bottom: 8px; font-size: 0.65rem; color: rgba(255,255,255,0.65); font-weight: 600;
+    }
+    .local-badge-dark.visible { display: inline-flex; }
+
     /* Jornada tabs */
     .jtab {
       padding: 5px 12px; border-radius: 100px;
@@ -338,12 +352,14 @@
     <!-- Bar chart -->
     <div class="card">
       <div class="card-title" id="barTitle"></div>
+      <div class="local-badge"></div>
       <div class="chart-wrap" id="barChart"></div>
     </div>
 
     <!-- Insight card -->
     <div class="card">
       <div class="card-title">Destaque da Pesquisa</div>
+      <div class="local-badge"></div>
       <div class="insight-num"   id="insightPct"></div>
       <div class="insight-title" id="insightTitle"></div>
       <div class="insight-sub"   id="insightSub"></div>
@@ -356,6 +372,7 @@
         <div class="card-title">Motivos de Compra</div>
         <button class="btn-sm">＋ Ver mais</button>
       </div>
+      <div class="local-badge"></div>
       <div id="motivosList"></div>
     </div>
   </div>
@@ -369,12 +386,14 @@
         <div class="card-title" id="bottomLeftTitle"></div>
         <button class="btn-sm" id="bottomLeftBtn"></button>
       </div>
+      <div class="local-badge"></div>
       <div id="bottomLeftContent"></div>
     </div>
 
     <!-- Donut: Cômodo Favorito -->
     <div class="card">
       <div class="card-title">Cômodo Favorito</div>
+      <div class="local-badge"></div>
       <div class="donut-wrap">
         <svg id="donut" width="172" height="172" viewBox="0 0 172 172"></svg>
         <div class="donut-legend" id="donutLegend"></div>
@@ -384,6 +403,7 @@
     <!-- Dark card -->
     <div class="dcard">
       <div class="dcard-label">Metragem Média</div>
+      <div class="local-badge-dark"></div>
       <div class="dcard-num" id="dcMetragem"></div>
       <div class="dcard-unit">metros quadrados</div>
       <div class="dcard-divider"></div>
@@ -395,7 +415,7 @@
 <!-- ANÁLISE AVANÇADA -->
 <div class="agrid1">
 
-  <!-- Jornada de Compra (P10A/P11A/P12A) -->
+  <!-- Jornada de Compra -->
   <div class="card">
     <div class="card-hdr" style="margin-bottom:12px">
       <div class="card-title">Jornada de Compra</div>
@@ -422,7 +442,7 @@
     </div>
     <div id="construtoraAtrib"></div>
     <div style="height:1px;background:var(--border);margin:16px 0"></div>
-    <div style="font-size:0.78rem;font-weight:700;margin-bottom:10px">Percepção Moura Dubeux — P32/P33/P34</div>
+    <div style="font-size:0.78rem;font-weight:700;margin-bottom:10px">Percepção Moura Dubeux</div>
     <div id="marcaMD"></div>
   </div>
 
@@ -982,6 +1002,7 @@ function renderDashboard(cityKey) {
     renderBottomLeft(d);
     renderDonut(d);
     renderDarkCard(d);
+    updateLocalBadges(d);
     dash.classList.remove('fading');
   }, 220);
 }
@@ -1461,6 +1482,18 @@ document.addEventListener('click', e => {
   if (card) openStatModal(card.id);
 });
 
+function updateLocalBadges(d) {
+  const text = d.isTotal ? '' : `🏙️ Dados locais — base ${d.n}`;
+  document.querySelectorAll('.local-badge, .local-badge-dark').forEach(el => {
+    if (d.isTotal) {
+      el.classList.remove('visible');
+    } else {
+      el.textContent = text;
+      el.classList.add('visible');
+    }
+  });
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // ANÁLISE AVANÇADA — render functions
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1528,7 +1561,7 @@ function renderConstrutora() {
 
   const awTitle = document.createElement('div');
   awTitle.style.cssText = 'font-size:0.72rem;font-weight:600;color:#6B7280;margin-bottom:8px';
-  awTitle.textContent = 'Reconhecimento de Marca por Cidade — P32';
+  awTitle.textContent = 'Reconhecimento de Marca por Cidade';
   m.appendChild(awTitle);
 
   const maxM = Math.max(...MD_AWARENESS.map(a => a.pct));
