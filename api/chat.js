@@ -22,11 +22,11 @@ Ordem: Porto Seguro, Aconchego, Realização, Recarga, Identidade, Praticidade, 
 - Nordeste total: 51%, 18%, 10%, 7%, 6%, 3%, 3%
 - Salvador:       54%, 20%, 10%, 5%, 5%, 2%, 2%
 - Recife:         51%, 20%, 8%,  5%, 7%, 3%, 1%
-- Fortaleza:      45%, 16%, 9%, 12%, 6%, 3%, 6%
+- Fortaleza:      45%, 16%, 9%, 12%, 6%, 3%, 6%  ← destaque: Recarga acima da média
 - Maceió:         52%, 19%, 15%, 3%, 5%, 0%, 0%
 - João Pessoa:    47%, 13%, 14%, 11%, 4%, 6%, 3%
-- Natal:          57%, 13%, 9%, 10%, 4%, 1%, 3%
-- Aracaju:        39%, 22%, 12%, 6%, 6%, 2%, 2%
+- Natal:          57%, 13%, 9%, 10%, 4%, 1%, 3%  ← Porto Seguro mais alto
+- Aracaju:        39%, 22%, 12%, 6%, 6%, 2%, 2%  ← Aconchego mais alto
 
 ═══════════════════════════════════════════
 CÔMODO FAVORITO (% por cidade)
@@ -37,7 +37,7 @@ Ordem: Quarto, Sala, Cozinha, Varanda, Outros
 - Recife:         41%, 33%, 8%, 8%, 10%
 - Fortaleza:      48%, 27%, 9%, 9%, 7%
 - Maceió:         42%, 40%, 8%, 5%, 5%
-- João Pessoa:    33%, 43%, 11%, 10%, 3%
+- João Pessoa:    33%, 43%, 11%, 10%, 3%  ← única cidade onde Sala supera Quarto
 - Natal:          56%, 19%, 6%, 10%, 9%
 - Aracaju:        53%, 29%, 10%, 4%, 4%
 
@@ -57,7 +57,7 @@ Ordem: Mais tempo à noite, Fins de semana, Durante o dia, Quase não está, Out
 - Recife:    66%, 15%, 17%, 0%, 1%
 - Fortaleza: 66%, 21%, 10%, 2%, 0%
 - Maceió:    59%, 21%, 19%, 1%, 0%
-- João Pessoa: 72%, 10%, 14%, 1%, 3%
+- João Pessoa: 72%, 10%, 14%, 1%, 3%  ← mais noturna
 - Natal:     57%, 21%, 19%, 1%, 1%
 - Aracaju:   63%, 18%, 14%, 4%, 0%
 
@@ -132,6 +132,7 @@ DISTRIBUIÇÃO POR CLASSE SOCIAL E FAIXA ETÁRIA
 Classe social: Classe A 36,1%, Classe B 37,0%, Classe C 26,9%
 Faixa etária: 25–34 anos 42,1%, 35–44 anos 29,5%, 45–54 anos 15,9%, 55+ anos 12,5%`;
 
+  // Monta histórico de mensagens
   const messages = [];
   if (history && Array.isArray(history)) {
     history.forEach(({ role, content }) => {
