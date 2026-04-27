@@ -83,7 +83,7 @@
       padding: 4px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
     }
     .scard.dark .scard-badge { background: rgba(255,255,255,0.18); color: #fff; }
-    .scard:not(.dark) .scard-badge { background: var(--g5); color: #065F46; }
+    .scard:not(.dark) .scard-badge { background: var(--g5); color: #662e33; }
     .scard-note { font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
 
     /* ── Grids ── */
@@ -163,7 +163,7 @@
     .row-sub  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
 
     .badge { font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; white-space: nowrap; }
-    .bg-g { background: #D1FAE5; color: #065F46; }
+    .bg-g { background: #F5EAEB; color: #662e33; }
     .bg-y { background: #FEF3C7; color: #92400E; }
     .bg-r { background: #FEE2E2; color: #991B1B; }
 
@@ -293,19 +293,19 @@
     .agrid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
 
     /* ── Chat Widget ── */
-    #chatBtn {
-      position: fixed; bottom: 28px; right: 28px; z-index: 900;
-      width: 52px; height: 52px; border-radius: 50%;
+    #chatHeaderBtn {
+      display: flex; align-items: center; gap: 9px;
       background: var(--g1); color: #fff; border: none;
-      font-size: 1.3rem; cursor: pointer;
-      box-shadow: 0 4px 16px rgba(27,61,47,0.35);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 100px; padding: 11px 20px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(102,46,51,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
     }
-    #chatBtn:hover { transform: scale(1.08); box-shadow: 0 6px 20px rgba(27,61,47,0.45); }
+    #chatHeaderBtn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(102,46,51,0.4); }
 
     #chatPanel {
-      position: fixed; bottom: 92px; right: 28px; z-index: 900;
+      position: fixed; bottom: 24px; right: 28px; z-index: 900;
       width: 340px; max-height: 520px;
       background: #fff; border-radius: 20px;
       box-shadow: 0 12px 48px rgba(0,0,0,0.18);
@@ -379,8 +379,8 @@
     #chatSend:disabled { background: #D1D5DB; cursor: default; }
 
     @media (max-width: 768px) {
-      #chatPanel { width: calc(100vw - 32px); right: 16px; bottom: 84px; }
-      #chatBtn   { right: 16px; bottom: 20px; }
+      #chatPanel { width: calc(100vw - 32px); right: 16px; bottom: 16px; }
+      #chatHeaderBtn { font-size: 0.78rem; padding: 9px 14px; }
     }
 
     /* ── Responsivo ── */
@@ -445,6 +445,10 @@
     <h1>Dashboard MDNE</h1>
     <p>Pesquisa habitacional com moradores de apartamentos no Nordeste do Brasil.</p>
   </div>
+  <button id="chatHeaderBtn" onclick="toggleChat()">
+    <span style="font-size:1.1rem">💬</span>
+    <span>Perguntar sobre os dados</span>
+  </button>
 </div>
 
 <!-- CITY TABS -->
@@ -624,10 +628,6 @@
 </div><!-- /dash-content -->
 
 <!-- CHAT WIDGET -->
-<button id="chatBtn" onclick="toggleChat()" title="Perguntar sobre a pesquisa">
-  <span id="chatBtnIcon">💬</span>
-</button>
-
 <div id="chatPanel">
   <div id="chatHeader">
     <div>
@@ -807,10 +807,10 @@ const COMODO_LABELS = ['Quarto', 'Sala', 'Cozinha', 'Varanda', 'Outros'];
 const COMODO_COLORS = ['#662e33', '#8B3D43', '#B06068', '#D4A0A4', '#c5c5c7'];
 
 const ATIVIDADES_META = [
-  { label: 'Descanso e Lazer',     icon: '🛋️', color: '#1B3D2F' },
-  { label: 'Tarefas Domésticas',   icon: '🧹', color: '#2D6A4F' },
-  { label: 'Trabalho em Casa',     icon: '💼', color: '#52B788' },
-  { label: 'Sem Rotina Definida',  icon: '🎲', color: '#95D5B2' },
+  { label: 'Descanso e Lazer',     icon: '🛋️', color: '#662e33' },
+  { label: 'Tarefas Domésticas',   icon: '🧹', color: '#8B3D43' },
+  { label: 'Trabalho em Casa',     icon: '💼', color: '#B06068' },
+  { label: 'Sem Rotina Definida',  icon: '🎲', color: '#D4A0A4' },
   { label: 'Dormir',               icon: '😴', color: '#D1D5DB' },
 ];
 
@@ -960,7 +960,7 @@ function renderBarChart(d) {
     const body = document.createElement('div');
     body.className = 'bar-body' + (bar.style === 'striped' ? ' striped' : '');
     body.style.height = '0px';
-    if (bar.style !== 'striped') body.style.background = COLOR_MAP[bar.style] || '#95D5B2';
+    if (bar.style !== 'striped') body.style.background = COLOR_MAP[bar.style] || '#D4A0A4';
 
     const tag = document.createElement('div');
     tag.className = 'bar-tag';
@@ -1223,8 +1223,8 @@ function openAnaliseModal() {
         const leg = document.createElement('div');
         leg.className = 'modal-legend';
         leg.innerHTML = `
-          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#1B3D2F"></div>${d.name}</div>
-          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#95D5B2"></div>Média regional</div>`;
+          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#662e33"></div>${d.name}</div>
+          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#D4A0A4"></div>Média regional</div>`;
         body.appendChild(leg);
       }
 
@@ -1243,7 +1243,7 @@ function openAnaliseModal() {
         const totalW    = (totalPct / maxPct * 100).toFixed(1);
         const diff      = cityPct - totalPct;
         const diffStr   = diff > 0 ? `▲ +${diff}pp` : diff < 0 ? `▼ ${diff}pp` : '—';
-        const diffColor = diff > 0 ? '#065F46' : diff < 0 ? '#991B1B' : '#6B7280';
+        const diffColor = diff > 0 ? '#662e33' : diff < 0 ? '#991B1B' : '#6B7280';
 
         const row = document.createElement('div');
         row.style.marginBottom = '14px';
@@ -1255,13 +1255,13 @@ function openAnaliseModal() {
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1">
               <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;margin-bottom:4px;">
-                <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#1B3D2F;border-radius:10px;"></div>
+                <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
               </div>
               ${!isTotal ? `<div style="background:#F3F4F6;border-radius:10px;overflow:hidden;">
-                <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#95D5B2;border-radius:10px;"></div>
+                <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
               </div>` : ''}
             </div>
-            <div style="font-size:0.8rem;font-weight:700;color:#1B3D2F;width:32px;text-align:right">${cityPct}%</div>
+            <div style="font-size:0.8rem;font-weight:700;color:#662e33;width:32px;text-align:right">${cityPct}%</div>
           </div>`;
         body.appendChild(row);
       });
@@ -1295,10 +1295,10 @@ function openCompararModal() {
         const row = document.createElement('div');
         row.className = 'hbar-row';
         row.innerHTML = `
-          <div class="hbar-city-lbl" style="${isActive ? 'color:#1B3D2F;font-weight:800' : ''}">${c.name}</div>
+          <div class="hbar-city-lbl" style="${isActive ? 'color:#662e33;font-weight:800' : ''}">${c.name}</div>
           <div class="hbar-track">
             <div class="hbar-fill" data-w="${w}"
-              style="width:0%;height:10px;background:${isActive ? '#1B3D2F' : '#95D5B2'};border-radius:10px;"></div>
+              style="width:0%;height:10px;background:${isActive ? '#662e33' : '#D4A0A4'};border-radius:10px;"></div>
           </div>
           <div class="hbar-pct" style="${isActive ? '' : 'color:#6B7280'}">${pct}%</div>`;
         body.appendChild(row);
@@ -1331,8 +1331,8 @@ function openDetalharModal() {
       const leg = document.createElement('div');
       leg.className = 'modal-legend';
       leg.innerHTML = `
-        <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#1B3D2F"></div>${d.name}</div>
-        <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#95D5B2"></div>Média regional</div>`;
+        <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#662e33"></div>${d.name}</div>
+        <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#D4A0A4"></div>Média regional</div>`;
       body.appendChild(leg);
 
       const pairs = ATIVIDADES_META.map((a, i) => ({
@@ -1348,7 +1348,7 @@ function openDetalharModal() {
         const totalW   = (totalPct / maxPct * 100).toFixed(1);
         const diff     = cityPct - totalPct;
         const diffStr  = diff > 0 ? `▲ +${diff}pp` : diff < 0 ? `▼ ${diff}pp` : '—';
-        const diffColor = diff > 0 ? '#065F46' : diff < 0 ? '#991B1B' : '#6B7280';
+        const diffColor = diff > 0 ? '#662e33' : diff < 0 ? '#991B1B' : '#6B7280';
 
         const row = document.createElement('div');
         row.style.marginBottom = '14px';
@@ -1360,13 +1360,13 @@ function openDetalharModal() {
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1">
               <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;margin-bottom:4px;">
-                <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#1B3D2F;border-radius:10px;"></div>
+                <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
               </div>
               <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;">
-                <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#95D5B2;border-radius:10px;"></div>
+                <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
               </div>
             </div>
-            <div style="font-size:0.8rem;font-weight:700;color:#1B3D2F;width:32px;text-align:right">${cityPct}%</div>
+            <div style="font-size:0.8rem;font-weight:700;color:#662e33;width:32px;text-align:right">${cityPct}%</div>
           </div>`;
         body.appendChild(row);
       });
@@ -1552,9 +1552,9 @@ function openStatModal(cardId) {
           const row = document.createElement('div');
           row.className = 'hbar-row';
           row.innerHTML = `
-            <div class="hbar-city-lbl" style="${isActive ? 'font-weight:800;color:#1B3D2F' : ''}">${c.name}</div>
+            <div class="hbar-city-lbl" style="${isActive ? 'font-weight:800;color:#662e33' : ''}">${c.name}</div>
             <div class="hbar-track">
-              <div class="hbar-fill" data-w="${(c.m/108.72*100).toFixed(1)}" style="width:0%;height:10px;background:${isActive ? '#1B3D2F' : '#95D5B2'};border-radius:10px;"></div>
+              <div class="hbar-fill" data-w="${(c.m/108.72*100).toFixed(1)}" style="width:0%;height:10px;background:${isActive ? '#662e33' : '#D4A0A4'};border-radius:10px;"></div>
             </div>
             <div class="hbar-pct" style="${isActive ? '' : 'color:#9CA3AF'}">${c.m.toFixed(0)}m²</div>`;
           body.appendChild(row);
@@ -1589,15 +1589,15 @@ function openStatModal(cardId) {
         const leg = document.createElement('div');
         leg.className = 'modal-legend';
         leg.innerHTML = `
-          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#1B3D2F"></div>${d.name}</div>
-          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#95D5B2"></div>Média regional</div>`;
+          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#662e33"></div>${d.name}</div>
+          <div class="modal-legend-item"><div class="modal-legend-dot" style="background:#D4A0A4"></div>Média regional</div>`;
         body.appendChild(leg);
         const rotinaPairs = ROTINA_LABELS.map((lbl, i) => ({ lbl, cp: data[i], tp: tData[i] }))
                                           .sort((a, b) => b.cp - a.cp);
         rotinaPairs.forEach(({ lbl, cp, tp }) => {
           const diff = cp - tp;
           const diffStr   = diff > 0 ? `▲ +${diff}pp` : diff < 0 ? `▼ ${diff}pp` : '—';
-          const diffColor = diff > 0 ? '#065F46' : diff < 0 ? '#991B1B' : '#6B7280';
+          const diffColor = diff > 0 ? '#662e33' : diff < 0 ? '#991B1B' : '#6B7280';
           const row = document.createElement('div');
           row.style.marginBottom = '14px';
           row.innerHTML = `
@@ -1608,13 +1608,13 @@ function openStatModal(cardId) {
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="flex:1">
                 <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;margin-bottom:4px;">
-                  <div class="hbar-fill" data-w="${(cp/max*100).toFixed(1)}" style="width:0%;height:10px;background:#1B3D2F;border-radius:10px;"></div>
+                  <div class="hbar-fill" data-w="${(cp/max*100).toFixed(1)}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
                 </div>
                 <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;">
-                  <div class="hbar-fill" data-w="${(tp/max*100).toFixed(1)}" style="width:0%;height:6px;background:#95D5B2;border-radius:10px;"></div>
+                  <div class="hbar-fill" data-w="${(tp/max*100).toFixed(1)}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
                 </div>
               </div>
-              <div style="font-size:0.8rem;font-weight:700;color:#1B3D2F;width:32px;text-align:right">${cp}%</div>
+              <div style="font-size:0.8rem;font-weight:700;color:#662e33;width:32px;text-align:right">${cp}%</div>
             </div>`;
           body.appendChild(row);
         });
@@ -1638,7 +1638,7 @@ function openStatModal(cardId) {
         });
         const note = document.createElement('div');
         note.style.cssText = 'margin-top:14px;padding:12px;background:#F3F4F6;border-radius:12px;font-size:0.75rem;color:#6B7280;';
-        note.innerHTML = '<strong style="color:#1B3D2F">Base não ponderada:</strong> 1.000 respondentes · Nordeste do Brasil · 2024';
+        note.innerHTML = '<strong style="color:#662e33">Base não ponderada:</strong> 1.000 respondentes · Nordeste do Brasil · 2024';
         body.appendChild(note);
       });
     } else {
@@ -1677,7 +1677,7 @@ function renderJornada(tab) {
   const data = map[tab];
   const container = document.getElementById('jornadaContent');
   container.innerHTML = '';
-  const COLORS = ['#1B3D2F','#2D6A4F','#52B788','#95D5B2','#B7DFC2','#D1D5DB','#E5E7EB'];
+  const COLORS = ['#662e33','#8B3D43','#B06068','#D4A0A4','#c5c5c7','#D1D5DB','#E5E7EB'];
   const maxPct = Math.max(...data.map(d => d.pct));
   data.forEach((item, i) => {
     const row = document.createElement('div');
@@ -1696,7 +1696,7 @@ function renderJornada(tab) {
 }
 
 function renderConstrutora() {
-  const COLORS = ['#1B3D2F','#2D6A4F','#52B788','#95D5B2','#B7DFC2','#D1D5DB'];
+  const COLORS = ['#662e33','#8B3D43','#B06068','#D4A0A4','#c5c5c7','#D1D5DB'];
   const c = document.getElementById('construtoraAtrib');
   c.innerHTML = '';
   const maxA = Math.max(...CONSTRUTORA_ATRIBUTOS.map(a => a.pct));
@@ -1721,12 +1721,12 @@ function renderConstrutora() {
   funnel.style.cssText = 'display:flex;gap:8px;margin-bottom:14px;align-items:center;';
   funnel.innerHTML = `
     <div style="flex:1;background:#F3F4F6;border-radius:12px;padding:10px;text-align:center">
-      <div style="font-size:1.3rem;font-weight:800;color:#1B3D2F">4,9%</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#662e33">4,9%</div>
       <div style="font-size:0.63rem;color:#6B7280;margin-top:2px;line-height:1.4">Moram em<br>imóvel MD</div>
     </div>
     <div style="color:#6B7280;font-size:1rem">→</div>
     <div style="flex:1;background:#F3F4F6;border-radius:12px;padding:10px;text-align:center">
-      <div style="font-size:1.3rem;font-weight:800;color:#1B3D2F">7,0%</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#662e33">7,0%</div>
       <div style="font-size:0.63rem;color:#6B7280;margin-top:2px;line-height:1.4">Querem MD na<br>próxima compra</div>
     </div>
     <div style="background:#F5EAEB;color:#662e33;font-size:0.68rem;font-weight:800;padding:4px 8px;border-radius:8px;white-space:nowrap">+43%</div>`;
@@ -1777,8 +1777,8 @@ function renderHeatmap() {
       const pct = DATA[ck].sentimentos[si];
       const intensity = Math.min(pct / 58, 1);
       const alpha = 0.1 + intensity * 0.9;
-      cells += `<div style="background:rgba(27,61,47,${alpha.toFixed(2)});border-radius:4px;height:26px;display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:0.57rem;font-weight:700;color:${intensity > 0.4 ? '#fff' : '#1B3D2F'}">${pct}%</span>
+      cells += `<div style="background:rgba(102,46,51,${alpha.toFixed(2)});border-radius:4px;height:26px;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:0.57rem;font-weight:700;color:${intensity > 0.4 ? '#fff' : '#662e33'}">${pct}%</span>
       </div>`;
     });
     row.innerHTML = cells;
@@ -1843,7 +1843,8 @@ let chatOpen = false;
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('chatPanel').classList.toggle('open', chatOpen);
-  document.getElementById('chatBtnIcon').textContent = chatOpen ? '✕' : '💬';
+  const hBtn = document.getElementById('chatHeaderBtn');
+  if (hBtn) hBtn.querySelector('span:last-child').textContent = chatOpen ? 'Fechar' : 'Perguntar sobre os dados';
   if (chatOpen) setTimeout(() => document.getElementById('chatInput').focus(), 250);
 }
 
