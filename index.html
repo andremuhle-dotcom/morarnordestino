@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — Pesquisa BOX+MD</title>
+  <title>Dashboard MDNE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --g1: #1B3D2F;
-      --g2: #2D6A4F;
-      --g3: #52B788;
-      --g4: #95D5B2;
-      --g5: #D1FAE5;
-      --bg: #EDECEA;
+      --g1: #662e33;
+      --g2: #8B3D43;
+      --g3: #B06068;
+      --g4: #D4A0A4;
+      --g5: #F5EAEB;
+      --bg: #F0EDEC;
       --card: #FFFFFF;
-      --text: #111827;
-      --muted: #6B7280;
-      --border: #E5E7EB;
+      --text: #404246;
+      --muted: #6B6E72;
+      --border: #E4E0E0;
     }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: 'Outfit', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       padding: 28px 32px;
@@ -442,7 +442,7 @@
 <!-- HEADER -->
 <div class="hdr">
   <div>
-    <h1>Dashboard</h1>
+    <h1>Dashboard MDNE</h1>
     <p>Pesquisa habitacional com moradores de apartamentos no Nordeste do Brasil.</p>
   </div>
 </div>
@@ -801,10 +801,10 @@ const MOTIVOS_EXTRA_META = [
 ];
 
 const SENT_LABELS = ['Porto Seg.', 'Aconchego', 'Realização', 'Recarga', 'Identidade', 'Praticidade', 'Social.'];
-const SENT_COLORS = ['#1B3D2F', '#2D6A4F', '#52B788', '#95D5B2', null, null, null];
+const SENT_COLORS = ['#662e33', '#8B3D43', '#B06068', '#D4A0A4', null, null, null];
 
 const COMODO_LABELS = ['Quarto', 'Sala', 'Cozinha', 'Varanda', 'Outros'];
-const COMODO_COLORS = ['#1B3D2F', '#52B788', '#95D5B2', '#B7DFC2', '#D1D5DB'];
+const COMODO_COLORS = ['#662e33', '#8B3D43', '#B06068', '#D4A0A4', '#c5c5c7'];
 
 const ATIVIDADES_META = [
   { label: 'Descanso e Lazer',     icon: '🛋️', color: '#1B3D2F' },
@@ -815,11 +815,11 @@ const ATIVIDADES_META = [
 ];
 
 const PERFIS = [
-  { initials: 'BV', label: 'Bon Vivant do Conforto',   n: 272, pct: '27,2', bg: '#1B3D2F', badge: 'bg-g', badgeText: 'Maior grupo' },
-  { initials: 'BA', label: 'Bairrista Afetivo',         n: 234, pct: '23,4', bg: '#2D6A4F', badge: 'bg-y', badgeText: 'Em alta' },
-  { initials: 'NC', label: 'Novidadeiro Criterioso',    n: 182, pct: '18,2', bg: '#52B788', badge: 'bg-y', badgeText: 'Em alta' },
-  { initials: 'EE', label: 'Econômico Essencialista',   n: 176, pct: '17,6', bg: '#95D5B2', bgText: '#1B3D2F', badge: 'bg-r', badgeText: 'Analisar' },
-  { initials: 'NR', label: 'Novo Rico Ostentação',      n: 136, pct: '13,6', bg: '#D1FAE5', bgText: '#065F46', badge: 'bg-r', badgeText: 'Menor grupo' },
+  { initials: 'BV', label: 'Bon Vivant do Conforto',   n: 272, pct: '27,2', bg: '#662e33', badge: 'bg-g', badgeText: 'Maior grupo' },
+  { initials: 'BA', label: 'Bairrista Afetivo',         n: 234, pct: '23,4', bg: '#8B3D43', badge: 'bg-y', badgeText: 'Em alta' },
+  { initials: 'NC', label: 'Novidadeiro Criterioso',    n: 182, pct: '18,2', bg: '#B06068', badge: 'bg-y', badgeText: 'Em alta' },
+  { initials: 'EE', label: 'Econômico Essencialista',   n: 176, pct: '17,6', bg: '#D4A0A4', bgText: '#662e33', badge: 'bg-r', badgeText: 'Analisar' },
+  { initials: 'NR', label: 'Novo Rico Ostentação',      n: 136, pct: '13,6', bg: '#F5EAEB', bgText: '#662e33', badge: 'bg-r', badgeText: 'Menor grupo' },
 ];
 
 const FATORES_ESCOLHA = [
@@ -858,11 +858,11 @@ const CONSTRUTORA_ATRIBUTOS = [
   { label: 'Sustentabilidade nos projetos',    pct: 25 },
 ];
 const METRAGEM_PERFIL = [
-  { label: 'Novo Rico Ostentação',   atual: 111, ideal: 137, color: '#1B3D2F' },
-  { label: 'Novidadeiro Criterioso', atual: 104, ideal: 132, color: '#2D6A4F' },
-  { label: 'Bon Vivant do Conforto', atual: 104, ideal: 129, color: '#52B788' },
-  { label: 'Bairrista Afetivo',      atual: 97,  ideal: 111, color: '#95D5B2' },
-  { label: 'Econômico Essencialista',atual: 93,  ideal: 109, color: '#B7DFC2' },
+  { label: 'Novo Rico Ostentação',   atual: 111, ideal: 137, color: '#662e33' },
+  { label: 'Novidadeiro Criterioso', atual: 104, ideal: 132, color: '#8B3D43' },
+  { label: 'Bon Vivant do Conforto', atual: 104, ideal: 129, color: '#B06068' },
+  { label: 'Bairrista Afetivo',      atual: 97,  ideal: 111, color: '#D4A0A4' },
+  { label: 'Econômico Essencialista',atual: 93,  ideal: 109, color: '#c5c5c7' },
 ];
 const MD_AWARENESS = [
   { city: 'Recife',      pct: 50 },
@@ -941,7 +941,7 @@ function renderBarChart(d) {
     bars = pairs.map((p, rank) => ({ ...p, style: colors[rank] }));
   }
 
-  const COLOR_MAP = { dark: '#1B3D2F', medium: '#2D6A4F', light: '#52B788', pale: '#95D5B2' };
+  const COLOR_MAP = { dark: '#662e33', medium: '#8B3D43', light: '#B06068', pale: '#D4A0A4' };
   const maxPct = Math.max(...bars.map(b => b.pct));
   const MAX_H  = 140;
 
@@ -1433,19 +1433,19 @@ const ROTINA_DATA = {
 const ROTINA_LABELS = ['Mais tempo à noite','Fins de semana','Durante o dia','Quase não está em casa','Outro'];
 
 const PERFIS_DESC = [
-  { initials:'BV', bg:'#1B3D2F', label:'Bon Vivant do Conforto',
+  { initials:'BV', bg:'#662e33', label:'Bon Vivant do Conforto',
     desc:'Valoriza qualidade de vida, espaços bem projetados e comodidade acima de tudo. Prioriza áreas de lazer, acabamento premium e infraestrutura do condomínio.',
     tags:['Maior grupo · 27,2%','Forte nas capitais','Sentimento: Porto Seguro'] },
-  { initials:'BA', bg:'#2D6A4F', label:'Bairrista Afetivo',
+  { initials:'BA', bg:'#8B3D43', label:'Bairrista Afetivo',
     desc:'Tem forte vínculo emocional com o bairro. Prefere imóveis próximos à família e à rede de serviços conhecidos. Localização é critério decisivo.',
     tags:['23,4% do total','Valoriza localização','Sentimento: Aconchego'] },
-  { initials:'NC', bg:'#52B788', label:'Novidadeiro Criterioso',
+  { initials:'NC', bg:'#B06068', label:'Novidadeiro Criterioso',
     desc:'Busca inovação com responsabilidade. Valoriza tecnologia embarcada, sustentabilidade e modernidade — mas pesquisa antes de decidir.',
     tags:['18,2% do total','Alto interesse em smart home','Perfil mais digital'] },
-  { initials:'EE', bg:'#95D5B2', bgText:'#1B3D2F', label:'Econômico Essencialista',
+  { initials:'EE', bg:'#D4A0A4', bgText:'#662e33', label:'Econômico Essencialista',
     desc:'Foco total em custo-benefício. Prioriza o essencial: boa localização, preço justo e praticidade. Evita supérfluos e pesquisa muito antes de comprar.',
     tags:['17,6% do total','Sensível a preço','Foca em metragem útil'] },
-  { initials:'NR', bg:'#D1FAE5', bgText:'#065F46', label:'Novo Rico Ostentação',
+  { initials:'NR', bg:'#F5EAEB', bgText:'#662e33', label:'Novo Rico Ostentação',
     desc:'Quer reconhecimento social e status. Valoriza endereço de prestígio, diferenciais visíveis e tudo que comunique ascensão social.',
     tags:['13,6% · menor grupo','Maior metragem média','Prioriza prestígio'] },
 ];
@@ -1482,7 +1482,7 @@ function makeHBar(label, pct, maxPct, color) {
 function openStatModal(cardId) {
   const d       = DATA[currentCityKey];
   const isTotal = !!d.isTotal;
-  const BAR_COLORS = ['#1B3D2F','#2D6A4F','#52B788','#95D5B2','#B7DFC2','#D1D5DB','#E5E7EB'];
+  const BAR_COLORS = ['#662e33','#8B3D43','#B06068','#D4A0A4','#c5c5c7','#D9D5D5','#EDE9E9'];
 
   // ── SC1: Respondentes ──────────────────────────────────────────────────────
   if (cardId === 'sc1') {
@@ -1729,7 +1729,7 @@ function renderConstrutora() {
       <div style="font-size:1.3rem;font-weight:800;color:#1B3D2F">7,0%</div>
       <div style="font-size:0.63rem;color:#6B7280;margin-top:2px;line-height:1.4">Querem MD na<br>próxima compra</div>
     </div>
-    <div style="background:#D1FAE5;color:#065F46;font-size:0.68rem;font-weight:800;padding:4px 8px;border-radius:8px;white-space:nowrap">+43%</div>`;
+    <div style="background:#F5EAEB;color:#662e33;font-size:0.68rem;font-weight:800;padding:4px 8px;border-radius:8px;white-space:nowrap">+43%</div>`;
   m.appendChild(funnel);
 
   const awTitle = document.createElement('div');
@@ -1879,9 +1879,20 @@ async function sendChat() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question, history: chatHistory }),
     });
-    const data = await res.json();
     loading.remove();
 
+    if (res.status === 404) {
+      appendChatMsg('⚠️ Função de chat não encontrada. Verifique se o arquivo /api/chat.js foi publicado no Vercel.', 'ai');
+      document.getElementById('chatSend').disabled = false;
+      return;
+    }
+    if (res.status === 500) {
+      appendChatMsg('⚠️ Erro no servidor. Verifique se a variável ANTHROPIC_API_KEY está configurada no Vercel (Settings → Environment Variables).', 'ai');
+      document.getElementById('chatSend').disabled = false;
+      return;
+    }
+
+    const data = await res.json();
     const answer = data.answer || data.error || 'Não consegui responder. Tente novamente.';
     appendChatMsg(answer, 'ai');
 
@@ -1892,17 +1903,41 @@ async function sendChat() {
 
   } catch {
     loading.remove();
-    appendChatMsg('Erro de conexão. Verifique sua internet e tente novamente.', 'ai');
+    appendChatMsg('⚠️ O chat só funciona quando publicado no Vercel. Abrir o arquivo localmente não é suficiente.', 'ai');
   }
 
   document.getElementById('chatSend').disabled = false;
   input.focus();
 }
 
+function markdownToHtml(text) {
+  return text
+    // Headings
+    .replace(/^### (.+)$/gm, '<div style="font-size:0.82rem;font-weight:700;margin:10px 0 4px">$1</div>')
+    .replace(/^## (.+)$/gm,  '<div style="font-size:0.85rem;font-weight:700;margin:10px 0 4px">$1</div>')
+    .replace(/^# (.+)$/gm,   '<div style="font-size:0.88rem;font-weight:700;margin:10px 0 5px">$1</div>')
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Bullet lists
+    .replace(/^[-•] (.+)$/gm, '<div style="display:flex;gap:6px;margin:3px 0"><span style="opacity:0.5;flex-shrink:0">•</span><span>$1</span></div>')
+    // Numbered lists
+    .replace(/^\d+\. (.+)$/gm, '<div style="display:flex;gap:6px;margin:3px 0"><span style="opacity:0.5;flex-shrink:0">›</span><span>$1</span></div>')
+    // Double line breaks → paragraph spacing
+    .replace(/\n\n/g, '<div style="margin-top:8px"></div>')
+    // Single line breaks
+    .replace(/\n/g, '<br>');
+}
+
 function appendChatMsg(text, role) {
   const div = document.createElement('div');
   div.className = `chat-msg chat-${role}`;
-  div.textContent = text;
+  if (role === 'ai') {
+    div.innerHTML = markdownToHtml(text);
+  } else {
+    div.textContent = text;
+  }
   const msgs = document.getElementById('chatMessages');
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
