@@ -30,7 +30,7 @@
         radial-gradient(ellipse at 15% 40%, rgba(102,46,51,0.14) 0%, transparent 55%),
         radial-gradient(ellipse at 85% 10%, rgba(102,46,51,0.08) 0%, transparent 45%);
       color: var(--text);
-      padding: 28px 32px;
+      padding: 28px calc(380px + 32px) 28px 32px;
       min-height: 100vh;
     }
 
@@ -331,99 +331,112 @@
     #profileTooltip.visible { opacity: 1; }
 
     /* ── Chat Widget ── */
-    #chatHeaderBtn {
-      display: flex; align-items: center; gap: 9px;
-      background: var(--g1); color: #fff; border: none;
-      border-radius: 100px; padding: 11px 20px;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer;
-      font-family: inherit; flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(102,46,51,0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    #chatHeaderBtn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(102,46,51,0.4); }
+    /* header chat button hidden — sidebar sempre visível */
+    #chatHeaderBtn { display: none; }
 
+    /* ── Chat Sidebar ── */
     #chatPanel {
-      position: fixed; bottom: 24px; right: 28px; z-index: 900;
-      width: 340px; max-height: 520px;
-      background: rgba(22,26,32,0.92);
-      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 20px;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+      position: fixed; right: 0; top: 0;
+      width: 380px; height: 100vh;
+      background: rgba(14,17,22,0.97);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-left: 1px solid rgba(255,255,255,0.09);
       display: flex; flex-direction: column;
-      transform: scale(0.92) translateY(12px);
-      opacity: 0; pointer-events: none;
-      transform-origin: bottom right;
-      transition: transform 0.22s cubic-bezier(0.34,1.3,0.64,1), opacity 0.18s ease;
+      z-index: 900;
     }
-    #chatPanel.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
 
     #chatHeader {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 14px 16px; background: var(--g1); color: #fff;
-      border-radius: 20px 20px 0 0;
+      display: flex; align-items: center; gap: 10px;
+      padding: 22px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
     }
-    #chatClose {
-      background: rgba(255,255,255,0.15); border: none; border-radius: 50%;
-      width: 28px; height: 28px; color: #fff; cursor: pointer; font-size: 0.8rem;
+    #chatHeader-icon {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: var(--g1);
       display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; flex-shrink: 0;
     }
-    #chatClose:hover { background: rgba(255,255,255,0.25); }
+    #chatClose { display: none; } /* sem botão fechar no desktop */
 
     #chatMessages {
-      flex: 1; overflow-y: auto; padding: 14px; display: flex;
-      flex-direction: column; gap: 10px; min-height: 0;
+      flex: 1; overflow-y: auto; padding: 20px 16px 12px;
+      display: flex; flex-direction: column; gap: 12px; min-height: 0;
     }
-    #chatMessages::-webkit-scrollbar { width: 4px; }
-    #chatMessages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    #chatMessages::-webkit-scrollbar { width: 3px; }
+    #chatMessages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
 
     .chat-msg {
-      max-width: 88%; padding: 9px 13px; border-radius: 14px;
-      font-size: 0.8rem; line-height: 1.55;
+      max-width: 90%; padding: 10px 14px; border-radius: 16px;
+      font-size: 0.82rem; line-height: 1.6;
     }
-    .chat-ai  { background: rgba(255,255,255,0.1); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-ai  { background: rgba(255,255,255,0.08); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
     .chat-user { background: var(--g1); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .chat-loading { background: rgba(255,255,255,0.1); align-self: flex-start; padding: 10px 16px; border-radius: 14px; border-bottom-left-radius: 4px; }
+    .chat-loading { background: rgba(255,255,255,0.08); align-self: flex-start; padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; }
     .chat-dots { display: flex; gap: 4px; }
-    .chat-dots span { width: 6px; height: 6px; background: rgba(255,255,255,0.45); border-radius: 50%; animation: chatdot 1.2s infinite; }
+    .chat-dots span { width: 6px; height: 6px; background: rgba(255,255,255,0.4); border-radius: 50%; animation: chatdot 1.2s infinite; }
     .chat-dots span:nth-child(2) { animation-delay: 0.2s; }
     .chat-dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes chatdot { 0%,80%,100% { transform: scale(0.7); opacity:0.4; } 40% { transform: scale(1); opacity:1; } }
 
-    #chatSuggestions { display: flex; flex-direction: column; gap: 6px; }
+    #chatSuggestions { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
     .chat-suggestion {
-      background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.14);
-      border-radius: 10px; padding: 7px 11px; font-size: 0.73rem;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 8px 12px; font-size: 0.75rem;
       color: var(--muted); cursor: pointer; text-align: left;
       font-family: inherit; transition: all 0.15s;
     }
-    .chat-suggestion:hover { border-color: var(--g3); color: var(--g4); background: rgba(102,46,51,0.2); }
+    .chat-suggestion:hover { border-color: var(--g3); color: var(--g4); background: rgba(102,46,51,0.18); }
 
     #chatInputArea {
-      display: flex; gap: 8px; padding: 12px 14px;
-      border-top: 1px solid var(--border);
+      padding: 12px 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
     }
-    #chatInput {
-      flex: 1; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 10px;
-      padding: 8px 12px; font-size: 0.8rem; font-family: inherit;
-      outline: none; color: var(--text);
+    #chatInputWrap {
+      display: flex; align-items: center; gap: 0;
       background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 14px; overflow: hidden;
+      transition: border-color 0.18s;
+    }
+    #chatInputWrap:focus-within { border-color: rgba(102,46,51,0.7); }
+    #chatInput {
+      flex: 1; border: none; background: transparent;
+      padding: 12px 14px; font-size: 0.83rem; font-family: inherit;
+      outline: none; color: var(--text); resize: none;
     }
     #chatInput::placeholder { color: var(--muted); }
-    #chatInput:focus { border-color: var(--g3); }
     #chatSend {
-      width: 34px; height: 34px; border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 10px; margin: 5px 6px;
       background: var(--g1); color: #fff; border: none;
-      cursor: pointer; font-size: 1rem; flex-shrink: 0;
+      cursor: pointer; font-size: 0.95rem; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.15s;
     }
     #chatSend:hover { background: var(--g2); }
-    #chatSend:disabled { background: rgba(255,255,255,0.15); cursor: default; }
+    #chatSend:disabled { background: rgba(255,255,255,0.12); cursor: default; }
+    #chatInputHint { font-size: 0.67rem; color: rgba(255,255,255,0.25); text-align: center; margin-top: 8px; }
 
-    @media (max-width: 768px) {
-      #chatPanel { width: calc(100vw - 32px); right: 16px; bottom: 16px; }
-      #chatHeaderBtn { font-size: 0.78rem; padding: 9px 14px; }
+    /* Mobile: sidebar vira painel flutuante */
+    #chatMobileBtn {
+      display: none;
+      position: fixed; bottom: 22px; right: 22px; z-index: 901;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: var(--g1); color: #fff; border: none;
+      font-size: 1.3rem; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(102,46,51,0.5);
+      align-items: center; justify-content: center;
+    }
+    @media (max-width: 900px) {
+      body { padding-right: 32px; }
+      #chatPanel {
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      }
+      #chatPanel.mobile-open { transform: translateX(0); }
+      #chatMobileBtn { display: flex; }
+      #chatMobileBtn.panel-open { background: var(--g2); }
     }
 
     /* ── Responsivo ── */
@@ -542,10 +555,7 @@
     <h1>Dashboard MDNE</h1>
     <p>Pesquisa habitacional com moradores de apartamentos no Nordeste do Brasil.</p>
   </div>
-  <button id="chatHeaderBtn" onclick="toggleChat()">
-    <span style="font-size:1.1rem">💬</span>
-    <span>Perguntar sobre os dados</span>
-  </button>
+  <!-- chat sidebar sempre visível no desktop -->
 </div>
 
 <!-- CITY TABS -->
@@ -748,17 +758,19 @@
 </div>
 </div><!-- /dash-content -->
 
-<!-- CHAT WIDGET -->
+<!-- PROFILE TOOLTIP -->
 <div id="profileTooltip"></div>
 
+<!-- CHAT SIDEBAR -->
 <div id="chatPanel">
   <div id="chatHeader">
+    <div id="chatHeader-icon">💬</div>
     <div>
-      <div style="font-weight:700;font-size:0.9rem">Assistente da Pesquisa</div>
-      <div style="font-size:0.7rem;opacity:0.7;margin-top:1px">Pergunte sobre os dados</div>
+      <div style="font-weight:700;font-size:0.88rem;color:var(--text)">Assistente da Pesquisa</div>
+      <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">BOX+MD · Nordeste 2024</div>
     </div>
-    <button id="chatClose" onclick="toggleChat()">✕</button>
   </div>
+
   <div id="chatMessages">
     <div class="chat-msg chat-ai">
       Olá! Posso responder qualquer dúvida sobre os dados da pesquisa habitacional BOX+MD. O que você gostaria de saber?
@@ -769,11 +781,19 @@
       <button class="chat-suggestion" onclick="sendSuggestion(this)">Como a MD é percebida nas cidades?</button>
     </div>
   </div>
+
   <div id="chatInputArea">
-    <input id="chatInput" type="text" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')sendChat()">
-    <button id="chatSend" onclick="sendChat()">↑</button>
+    <div id="chatInputWrap">
+      <input id="chatInput" type="text" placeholder="Pergunte sobre os dados..."
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}">
+      <button id="chatSend" onclick="sendChat()">↑</button>
+    </div>
+    <div id="chatInputHint">Enter para enviar</div>
   </div>
 </div>
+
+<!-- MOBILE CHAT TOGGLE -->
+<button id="chatMobileBtn" onclick="toggleMobileChat()" title="Abrir assistente">💬</button>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
@@ -908,19 +928,19 @@ const DATA = {
 };
 
 const MOTIVOS_META = [
-  { label: 'Busca por Segurança',     icon: '🔒', bg: '#DCFCE7' },
-  { label: 'Necessidade de Espaço',   icon: '📐', bg: '#DBEAFE' },
-  { label: 'Estabilidade Financeira', icon: '💰', bg: '#FEF9C3' },
-  { label: 'Proximidade ao Trabalho', icon: '📍', bg: '#FCE7F3' },
-  { label: 'Novo Estilo de Vida',     icon: '🌿', bg: '#EDE9FE' },
+  { label: 'Busca por Segurança',     icon: '🔒', bg: 'rgba(34,197,94,0.15)' },
+  { label: 'Necessidade de Espaço',   icon: '📐', bg: 'rgba(59,130,246,0.15)' },
+  { label: 'Estabilidade Financeira', icon: '💰', bg: 'rgba(234,179,8,0.15)' },
+  { label: 'Proximidade ao Trabalho', icon: '📍', bg: 'rgba(219,39,119,0.15)' },
+  { label: 'Novo Estilo de Vida',     icon: '🌿', bg: 'rgba(139,92,246,0.15)' },
 ];
 
 const MOTIVOS_EXTRA_META = [
-  { label: 'Mudança de Fase de Vida', icon: '👨‍👩‍👧', bg: '#FEE2E2' },
-  { label: 'Lazer para Crianças',     icon: '🎠',    bg: '#FEF3C7' },
-  { label: 'Mais Serviços Próximos',  icon: '🏪',    bg: '#DBEAFE' },
-  { label: 'Espaço em Área Comum',    icon: '🏋️',   bg: '#EDE9FE' },
-  { label: 'Mudança de Cidade',       icon: '🚚',    bg: '#F3F4F6' },
+  { label: 'Mudança de Fase de Vida', icon: '👨‍👩‍👧', bg: 'rgba(239,68,68,0.15)' },
+  { label: 'Lazer para Crianças',     icon: '🎠',    bg: 'rgba(245,158,11,0.15)' },
+  { label: 'Mais Serviços Próximos',  icon: '🏪',    bg: 'rgba(59,130,246,0.15)' },
+  { label: 'Espaço em Área Comum',    icon: '🏋️',   bg: 'rgba(139,92,246,0.15)' },
+  { label: 'Mudança de Cidade',       icon: '🚚',    bg: 'rgba(255,255,255,0.1)' },
 ];
 
 const SENT_LABELS = ['Porto Seg.', 'Aconchego', 'Realização', 'Recarga', 'Identidade', 'Praticidade', 'Social.'];
@@ -941,8 +961,8 @@ const PERFIS = [
   { initials: 'BV', label: 'Bon Vivant do Conforto',   n: 272, pct: '27,2', bg: '#662e33', badge: 'bg-g', badgeText: 'Maior grupo' },
   { initials: 'BA', label: 'Bairrista Afetivo',         n: 234, pct: '23,4', bg: '#8B3D43', badge: 'bg-y', badgeText: 'Em alta' },
   { initials: 'NC', label: 'Novidadeiro Criterioso',    n: 182, pct: '18,2', bg: '#B06068', badge: 'bg-y', badgeText: 'Em alta' },
-  { initials: 'EE', label: 'Econômico Essencialista',   n: 176, pct: '17,6', bg: '#D4A0A4', bgText: '#662e33', badge: 'bg-r', badgeText: 'Analisar' },
-  { initials: 'NR', label: 'Novo Rico Ostentação',      n: 136, pct: '13,6', bg: '#F5EAEB', bgText: '#662e33', badge: 'bg-r', badgeText: 'Menor grupo' },
+  { initials: 'EE', label: 'Econômico Essencialista',   n: 176, pct: '17,6', bg: '#5a2040', badge: 'bg-r', badgeText: 'Analisar' },
+  { initials: 'NR', label: 'Novo Rico Ostentação',      n: 136, pct: '13,6', bg: '#3d1f26', badge: 'bg-r', badgeText: 'Menor grupo' },
 ];
 
 const FATORES_ESCOLHA = [
@@ -1311,7 +1331,7 @@ function renderDonut(d) {
   const segs = d.comodos.map((pct, i) => ({ pct, color: COMODO_COLORS[i] }));
 
   // Background ring
-  const bg = mkCircle(svg, cx, cy, R, '#F3F4F6', SW);
+  const bg = mkCircle(svg, cx, cy, R, 'rgba(255,255,255,0.08)', SW);
   svg.appendChild(bg);
 
   const segCircles = [];
@@ -1337,8 +1357,8 @@ function renderDonut(d) {
 
   // Center text — biggest segment
   const maxIdx = d.comodos.indexOf(Math.max(...d.comodos));
-  appendText(svg, cx, cy - 8,  d.comodos[maxIdx] + '%', '23', '700', '#111827');
-  appendText(svg, cx, cy + 11, COMODO_LABELS[maxIdx],   '10', '500', '#6B7280');
+  appendText(svg, cx, cy - 8,  d.comodos[maxIdx] + '%', '23', '700', '#ffffff');
+  appendText(svg, cx, cy + 11, COMODO_LABELS[maxIdx],   '10', '500', '#9ca3af');
 
   // Legend
   COMODO_LABELS.forEach((lbl, i) => {
@@ -1475,7 +1495,7 @@ function openAnaliseModal() {
         const totalW    = (totalPct / maxPct * 100).toFixed(1);
         const diff      = cityPct - totalPct;
         const diffStr   = diff > 0 ? `▲ +${diff}pp` : diff < 0 ? `▼ ${diff}pp` : '—';
-        const diffColor = diff > 0 ? '#662e33' : diff < 0 ? '#991B1B' : '#6B7280';
+        const diffColor = diff > 0 ? '#D4A0A4' : diff < 0 ? '#f87171' : '#9ca3af';
 
         const row = document.createElement('div');
         row.style.marginBottom = '14px';
@@ -1580,7 +1600,7 @@ function openDetalharModal() {
         const totalW   = (totalPct / maxPct * 100).toFixed(1);
         const diff     = cityPct - totalPct;
         const diffStr  = diff > 0 ? `▲ +${diff}pp` : diff < 0 ? `▼ ${diff}pp` : '—';
-        const diffColor = diff > 0 ? '#662e33' : diff < 0 ? '#991B1B' : '#6B7280';
+        const diffColor = diff > 0 ? '#D4A0A4' : diff < 0 ? '#f87171' : '#9ca3af';
 
         const row = document.createElement('div');
         row.style.marginBottom = '14px';
@@ -1674,10 +1694,10 @@ const PERFIS_DESC = [
   { initials:'NC', bg:'#B06068', label:'Novidadeiro Criterioso',
     desc:'Busca inovação com responsabilidade. Valoriza tecnologia embarcada, sustentabilidade e modernidade — mas pesquisa antes de decidir.',
     tags:['18,2% do total','Alto interesse em smart home','Perfil mais digital'] },
-  { initials:'EE', bg:'#D4A0A4', bgText:'#662e33', label:'Econômico Essencialista',
+  { initials:'EE', bg:'#5a2040', label:'Econômico Essencialista',
     desc:'Foco total em custo-benefício. Prioriza o essencial: boa localização, preço justo e praticidade. Evita supérfluos e pesquisa muito antes de comprar.',
     tags:['17,6% do total','Sensível a preço','Foca em metragem útil'] },
-  { initials:'NR', bg:'#F5EAEB', bgText:'#662e33', label:'Novo Rico Ostentação',
+  { initials:'NR', bg:'#3d1f26', label:'Novo Rico Ostentação',
     desc:'Quer reconhecimento social e status. Valoriza endereço de prestígio, diferenciais visíveis e tudo que comunique ascensão social.',
     tags:['13,6% · menor grupo','Maior metragem média','Prioriza prestígio'] },
 ];
@@ -1800,7 +1820,7 @@ function openStatModal(cardId) {
       openModal('Perfis Comportamentais', 'Características e motivações de cada perfil identificado na pesquisa', body => {
         PERFIS_DESC.forEach(p => {
           const card = document.createElement('div');
-          card.style.cssText = 'display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #F3F4F6;align-items:flex-start;';
+          card.style.cssText = 'display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.1);align-items:flex-start;';
           card.innerHTML = `
             <div style="width:38px;height:38px;border-radius:50%;background:${p.bg};color:${p.bgText||'#fff'};display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0">${p.initials}</div>
             <div style="flex:1">
@@ -1829,7 +1849,7 @@ function openStatModal(cardId) {
         rotinaPairs.forEach(({ lbl, cp, tp }) => {
           const diff = cp - tp;
           const diffStr   = diff > 0 ? `▲ +${diff}pp` : diff < 0 ? `▼ ${diff}pp` : '—';
-          const diffColor = diff > 0 ? '#662e33' : diff < 0 ? '#991B1B' : '#6B7280';
+          const diffColor = diff > 0 ? '#D4A0A4' : diff < 0 ? '#f87171' : '#9ca3af';
           const row = document.createElement('div');
           row.style.marginBottom = '14px';
           row.innerHTML = `
@@ -1859,7 +1879,7 @@ function openStatModal(cardId) {
       openModal('Estrutura da Pesquisa', 'Temas e módulos abordados no questionário', body => {
         SURVEY_THEMES.forEach(t => {
           const row = document.createElement('div');
-          row.style.cssText = 'display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #F3F4F6;';
+          row.style.cssText = 'display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.1);';
           row.innerHTML = `
             <div style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">${t.icon}</div>
             <div>
@@ -2209,14 +2229,14 @@ renderMetragemPerfil();
 // CHAT WIDGET
 // ─────────────────────────────────────────────────────────────────────────────
 let chatHistory = [];
-let chatOpen = false;
 
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
-  const hBtn = document.getElementById('chatHeaderBtn');
-  if (hBtn) hBtn.querySelector('span:last-child').textContent = chatOpen ? 'Fechar' : 'Perguntar sobre os dados';
-  if (chatOpen) setTimeout(() => document.getElementById('chatInput').focus(), 250);
+function toggleMobileChat() {
+  const panel = document.getElementById('chatPanel');
+  const btn   = document.getElementById('chatMobileBtn');
+  const open  = panel.classList.toggle('mobile-open');
+  btn.classList.toggle('panel-open', open);
+  btn.textContent = open ? '✕' : '💬';
+  if (open) setTimeout(() => document.getElementById('chatInput').focus(), 300);
 }
 
 function sendSuggestion(btn) {
