@@ -292,6 +292,24 @@
     .agrid1 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 14px; }
     .agrid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
 
+    /* ── Profile Tooltip ── */
+    .profile-tip {
+      cursor: help;
+      border-bottom: 1px dashed rgba(102,46,51,0.35);
+      display: inline;
+    }
+    #profileTooltip {
+      position: fixed; z-index: 9999;
+      background: #404246; color: #fff;
+      padding: 10px 14px; border-radius: 12px;
+      font-size: 0.73rem; line-height: 1.6;
+      width: 250px; pointer-events: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+      opacity: 0; transition: opacity 0.15s ease;
+      font-family: 'Outfit', sans-serif;
+    }
+    #profileTooltip.visible { opacity: 1; }
+
     /* ── Chat Widget ── */
     #chatHeaderBtn {
       display: flex; align-items: center; gap: 9px;
@@ -628,6 +646,8 @@
 </div><!-- /dash-content -->
 
 <!-- CHAT WIDGET -->
+<div id="profileTooltip"></div>
+
 <div id="chatPanel">
   <div id="chatHeader">
     <div>
@@ -874,6 +894,43 @@ const MD_AWARENESS = [
   { city: 'João Pessoa', pct: 31 },
 ];
 
+const PERFIS_TIPS = {
+  'Bon Vivant do Conforto':    'Busca um santuário pessoal onde o lar se adapta ao seu estilo, não o contrário. Valoriza conforto elevado, flexibilidade para personalização e qualidade nos detalhes. Passa muito tempo em casa e quer que o espaço reflita quem é.',
+  'Bairrista Afetivo':         'Para ele, a casa tem que ter sua cara e estar no bairro certo. Prioriza espaço amplo para receber família e amigos, e confia mais em construtoras com raízes locais. Localização afetiva vale mais do que modernidade genérica.',
+  'Novidadeiro Criterioso':    'Vê o imóvel como investimento de longo prazo e pesquisa muito antes de decidir. Valoriza inovação com utilidade real, qualidade de acabamento e potencial de valorização. Racional e detalhista — não fecha negócio sem evidências sólidas.',
+  'Econômico Essencialista':   'Abordagem pragmática: quer o essencial por um preço justo, sem pagar por extras que não usa. Desconfia de inovações caras e prioriza espaço interno a áreas comuns sofisticadas. Só considera imóveis novos se a proposta for financeiramente vantajosa.',
+  'Novo Rico Ostentação':      'Enxerga o imóvel como vitrine do seu sucesso e não aceita o genérico. Busca tecnologia, automação, áreas comuns sofisticadas e apartamentos grandes em prédios recentes. A casa precisa ser aspiracional — algo que as pessoas admirem.',
+};
+
+// ── Tooltip logic ────────────────────────────────────────────────────────────
+const _tip = () => document.getElementById('profileTooltip');
+
+document.addEventListener('mousemove', e => {
+  const t = _tip();
+  if (t.classList.contains('visible')) {
+    const x = e.clientX + 14;
+    const y = e.clientY + 14;
+    t.style.left = (x + 260 > window.innerWidth ? e.clientX - 264 : x) + 'px';
+    t.style.top  = (y + 80  > window.innerHeight ? e.clientY - 90  : y) + 'px';
+  }
+});
+
+function makeTip(label) {
+  const tip = PERFIS_TIPS[label];
+  if (!tip) return label;
+  return `<span class="profile-tip"
+    onmouseenter="showTip(this, '${tip.replace(/'/g,"&#39;")}')"
+    onmouseleave="hideTip()">${label}</span>`;
+}
+function showTip(el, text) {
+  const t = _tip();
+  t.textContent = text;
+  t.classList.add('visible');
+}
+function hideTip() {
+  _tip().classList.remove('visible');
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // RENDER
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1044,7 +1101,7 @@ function renderBottomLeft(d) {
       div.innerHTML = `
         <div class="p-av" style="background:${p.bg};color:${p.bgText || '#fff'}">${p.initials}</div>
         <div style="flex:1;min-width:0">
-          <div class="row-name">${p.label}</div>
+          <div class="row-name">${makeTip(p.label)}</div>
           <div class="row-sub">${p.n} respondentes · ${p.pct}% do total</div>
         </div>
         <span class="badge ${p.badge}">${p.badgeText}</span>`;
@@ -1572,7 +1629,7 @@ function openStatModal(cardId) {
           card.innerHTML = `
             <div style="width:38px;height:38px;border-radius:50%;background:${p.bg};color:${p.bgText||'#fff'};display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0">${p.initials}</div>
             <div style="flex:1">
-              <div style="font-size:0.85rem;font-weight:700;margin-bottom:4px">${p.label}</div>
+              <div style="font-size:0.85rem;font-weight:700;margin-bottom:4px">${makeTip(p.label)}</div>
               <div style="font-size:0.75rem;color:#6B7280;line-height:1.55;margin-bottom:8px">${p.desc}</div>
               <div style="display:flex;flex-wrap:wrap;gap:6px">
                 ${p.tags.map(t => `<span style="background:#F3F4F6;border-radius:20px;padding:3px 9px;font-size:0.68rem;font-weight:600;color:#374151">${t}</span>`).join('')}
@@ -1797,7 +1854,7 @@ function renderMetragemPerfil() {
     row.style.cssText = 'margin-bottom:14px;';
     row.innerHTML = `
       <div style="margin-bottom:5px;">
-        <div style="font-size:0.75rem;font-weight:700">${p.label}</div>
+        <div style="font-size:0.75rem;font-weight:700">${makeTip(p.label)}</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
         <div style="flex:1;background:#F3F4F6;border-radius:8px;overflow:hidden;">
