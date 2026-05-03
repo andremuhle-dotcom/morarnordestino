@@ -15,17 +15,20 @@
       --g2: #8B3D43;
       --g3: #B06068;
       --g4: #D4A0A4;
-      --g5: #F5EAEB;
-      --bg: #F0EDEC;
-      --card: #FFFFFF;
-      --text: #404246;
-      --muted: #6B6E72;
-      --border: #E4E0E0;
+      --g5: rgba(102,46,51,0.35);
+      --bg: #1a1d23;
+      --card: rgba(255,255,255,0.07);
+      --text: #e8eaed;
+      --muted: #9ca3af;
+      --border: rgba(255,255,255,0.1);
     }
 
     body {
       font-family: 'Outfit', -apple-system, sans-serif;
-      background: var(--bg);
+      background: #1a1d23;
+      background-image:
+        radial-gradient(ellipse at 15% 40%, rgba(102,46,51,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 10%, rgba(102,46,51,0.08) 0%, transparent 45%);
       color: var(--text);
       padding: 28px 32px;
       min-height: 100vh;
@@ -43,8 +46,8 @@
     }
     .city-tab {
       padding: 7px 16px; border-radius: 100px;
-      border: 1.5px solid #D1D5DB;
-      background: transparent; color: var(--muted);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.05); color: var(--muted);
       font-size: 0.78rem; font-weight: 600;
       cursor: pointer; font-family: inherit;
       transition: all 0.2s ease;
@@ -60,7 +63,7 @@
     /* ── Stats Row ── */
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
 
-    .scard { background: var(--card); border-radius: 18px; padding: 22px; position: relative; }
+    .scard { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; position: relative; }
     .scard.dark { background: var(--g1); color: #fff; }
 
     .scard-icon {
@@ -71,7 +74,7 @@
     }
     .scard-icon:hover { transform: scale(1.1); opacity: 0.75; }
     .scard.dark .scard-icon { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
-    .scard:not(.dark) .scard-icon { border: 1.5px solid #D1D5DB; color: var(--text); }
+    .scard:not(.dark) .scard-icon { border: 1.5px solid rgba(255,255,255,0.2); color: var(--text); }
 
     .scard-label { font-size: 0.8rem; font-weight: 500; margin-bottom: 14px; }
     .scard.dark .scard-label { color: rgba(255,255,255,0.8); }
@@ -83,22 +86,23 @@
       padding: 4px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
     }
     .scard.dark .scard-badge { background: rgba(255,255,255,0.18); color: #fff; }
-    .scard:not(.dark) .scard-badge { background: var(--g5); color: #662e33; }
+    .scard:not(.dark) .scard-badge { background: var(--g5); color: var(--g4); }
     .scard-note { font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
 
     /* ── Grids ── */
     .mgrid { display: grid; grid-template-columns: 1.35fr 0.75fr 1fr; gap: 14px; margin-bottom: 14px; }
     .bgrid { display: grid; grid-template-columns: 1.2fr 0.95fr 0.85fr; gap: 14px; }
 
-    .card { background: var(--card); border-radius: 18px; padding: 22px; }
+    .card { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; }
     .card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 18px; }
     .card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     .card-hdr .card-title { margin-bottom: 0; }
 
     .btn-sm {
-      background: transparent; border: 1.5px solid #D1D5DB;
+      background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.18);
       border-radius: 100px; padding: 5px 13px;
       font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit;
+      color: var(--text);
     }
 
     /* ── Bar Chart ── */
@@ -113,14 +117,15 @@
       transition: height 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
     }
     .bar-body.striped {
-      background: repeating-linear-gradient(-45deg, #E5E7EB, #E5E7EB 3px, #F9FAFB 3px, #F9FAFB 9px);
+      background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1) 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 9px);
     }
     .bar-tag {
       position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
       font-size: 0.65rem; font-weight: 700;
-      background: #fff; border: 1px solid #E5E7EB;
+      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
+      color: var(--text);
       padding: 2px 8px; border-radius: 20px; white-space: nowrap;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.3);
     }
     .bar-lbl { font-size: 0.62rem; color: var(--muted); font-weight: 500; text-align: center; line-height: 1.3; }
 
@@ -163,16 +168,16 @@
     .row-sub  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
 
     .badge { font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; white-space: nowrap; }
-    .bg-g { background: #F5EAEB; color: #662e33; }
-    .bg-y { background: #FEF3C7; color: #92400E; }
-    .bg-r { background: #FEE2E2; color: #991B1B; }
+    .bg-g { background: rgba(102,46,51,0.35); color: #D4A0A4; }
+    .bg-y { background: rgba(234,179,8,0.18); color: #fbbf24; }
+    .bg-r { background: rgba(153,27,27,0.25); color: #f87171; }
 
     /* Progress bar rows (for city atividades view) */
     .prog-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
     .prog-row:last-child { border-bottom: none; }
     .prog-icon { font-size: 1rem; width: 28px; text-align: center; flex-shrink: 0; }
     .prog-label { font-size: 0.78rem; font-weight: 600; width: 140px; flex-shrink: 0; }
-    .prog-bar-wrap { flex: 1; height: 6px; background: #F3F4F6; border-radius: 10px; overflow: hidden; }
+    .prog-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
     .prog-bar { height: 100%; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.2,0.64,1); }
     .prog-pct { font-size: 0.75rem; font-weight: 700; color: var(--g1); width: 32px; text-align: right; flex-shrink: 0; }
 
@@ -218,11 +223,14 @@
     .modal-overlay.open { opacity: 1; pointer-events: all; }
 
     .modal {
-      background: #fff; border-radius: 22px; padding: 30px;
+      background: rgba(22,26,32,0.92);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px; padding: 30px;
       width: 92%; max-width: 560px; max-height: 82vh; overflow-y: auto;
       transform: translateY(12px);
       transition: transform 0.22s ease;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
     .modal-overlay.open .modal { transform: translateY(0); }
 
@@ -233,12 +241,12 @@
     .modal-title { font-size: 1.1rem; font-weight: 800; }
     .modal-sub   { font-size: 0.78rem; color: var(--muted); margin-bottom: 22px; }
     .modal-close {
-      background: #F3F4F6; border: none; border-radius: 50%;
-      width: 32px; height: 32px; cursor: pointer; font-size: 1rem;
+      background: rgba(255,255,255,0.1); border: none; border-radius: 50%;
+      width: 32px; height: 32px; cursor: pointer; font-size: 1rem; color: var(--text);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; margin-left: 12px;
     }
-    .modal-close:hover { background: #E5E7EB; }
+    .modal-close:hover { background: rgba(255,255,255,0.18); }
 
     /* Horizontal bars inside modal */
     .hbar-row {
@@ -247,7 +255,7 @@
     }
     .hbar-lbl  { width: 94px; font-size: 0.75rem; font-weight: 600; text-align: right; flex-shrink: 0; color: var(--text); }
     .hbar-city-lbl { width: 110px; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; color: var(--text); }
-    .hbar-track { flex: 1; background: #F3F4F6; border-radius: 10px; overflow: hidden; position: relative; }
+    .hbar-track { flex: 1; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; position: relative; }
     .hbar-stack { display: flex; height: 10px; }
     .hbar-fill  { height: 10px; border-radius: 10px; transition: width 0.55s cubic-bezier(0.34,1.2,0.64,1); }
     .hbar-pct   { font-size: 0.75rem; font-weight: 700; color: var(--g1); width: 36px; text-align: right; flex-shrink: 0; }
@@ -268,8 +276,8 @@
     /* Local data badge */
     .local-badge {
       display: none; align-items: center; gap: 5px;
-      background: #F3F4F6; border-radius: 8px; padding: 4px 9px;
-      margin-bottom: 12px; font-size: 0.65rem; color: #6B7280; font-weight: 600;
+      background: rgba(255,255,255,0.08); border-radius: 8px; padding: 4px 9px;
+      margin-bottom: 12px; font-size: 0.65rem; color: var(--muted); font-weight: 600;
     }
     .local-badge.visible { display: inline-flex; }
     .local-badge-dark {
@@ -282,7 +290,7 @@
     /* Jornada tabs */
     .jtab {
       padding: 5px 12px; border-radius: 100px;
-      border: 1.5px solid #D1D5DB; background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05);
       color: var(--muted); font-size: 0.72rem; font-weight: 600;
       cursor: pointer; font-family: inherit; transition: all 0.15s;
     }
@@ -335,8 +343,11 @@
     #chatPanel {
       position: fixed; bottom: 24px; right: 28px; z-index: 900;
       width: 340px; max-height: 520px;
-      background: #fff; border-radius: 20px;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+      background: rgba(22,26,32,0.92);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
       display: flex; flex-direction: column;
       transform: scale(0.92) translateY(12px);
       opacity: 0; pointer-events: none;
@@ -362,40 +373,42 @@
       flex-direction: column; gap: 10px; min-height: 0;
     }
     #chatMessages::-webkit-scrollbar { width: 4px; }
-    #chatMessages::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 4px; }
+    #chatMessages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
     .chat-msg {
       max-width: 88%; padding: 9px 13px; border-radius: 14px;
       font-size: 0.8rem; line-height: 1.55;
     }
-    .chat-ai  { background: #F3F4F6; color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-ai  { background: rgba(255,255,255,0.1); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
     .chat-user { background: var(--g1); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .chat-loading { background: #F3F4F6; align-self: flex-start; padding: 10px 16px; border-radius: 14px; border-bottom-left-radius: 4px; }
+    .chat-loading { background: rgba(255,255,255,0.1); align-self: flex-start; padding: 10px 16px; border-radius: 14px; border-bottom-left-radius: 4px; }
     .chat-dots { display: flex; gap: 4px; }
-    .chat-dots span { width: 6px; height: 6px; background: #9CA3AF; border-radius: 50%; animation: chatdot 1.2s infinite; }
+    .chat-dots span { width: 6px; height: 6px; background: rgba(255,255,255,0.45); border-radius: 50%; animation: chatdot 1.2s infinite; }
     .chat-dots span:nth-child(2) { animation-delay: 0.2s; }
     .chat-dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes chatdot { 0%,80%,100% { transform: scale(0.7); opacity:0.4; } 40% { transform: scale(1); opacity:1; } }
 
     #chatSuggestions { display: flex; flex-direction: column; gap: 6px; }
     .chat-suggestion {
-      background: transparent; border: 1.5px solid #E5E7EB;
+      background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.14);
       border-radius: 10px; padding: 7px 11px; font-size: 0.73rem;
       color: var(--muted); cursor: pointer; text-align: left;
       font-family: inherit; transition: all 0.15s;
     }
-    .chat-suggestion:hover { border-color: var(--g2); color: var(--g2); background: #F0FDF4; }
+    .chat-suggestion:hover { border-color: var(--g3); color: var(--g4); background: rgba(102,46,51,0.2); }
 
     #chatInputArea {
       display: flex; gap: 8px; padding: 12px 14px;
       border-top: 1px solid var(--border);
     }
     #chatInput {
-      flex: 1; border: 1.5px solid #E5E7EB; border-radius: 10px;
+      flex: 1; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 10px;
       padding: 8px 12px; font-size: 0.8rem; font-family: inherit;
       outline: none; color: var(--text);
+      background: rgba(255,255,255,0.07);
     }
-    #chatInput:focus { border-color: var(--g2); }
+    #chatInput::placeholder { color: var(--muted); }
+    #chatInput:focus { border-color: var(--g3); }
     #chatSend {
       width: 34px; height: 34px; border-radius: 50%;
       background: var(--g1); color: #fff; border: none;
@@ -404,7 +417,7 @@
       transition: background 0.15s;
     }
     #chatSend:hover { background: var(--g2); }
-    #chatSend:disabled { background: #D1D5DB; cursor: default; }
+    #chatSend:disabled { background: rgba(255,255,255,0.15); cursor: default; }
 
     @media (max-width: 768px) {
       #chatPanel { width: calc(100vw - 32px); right: 16px; bottom: 16px; }
@@ -597,7 +610,7 @@
       <div class="card-title">Jornada de Compra</div>
       <span style="font-size:0.68rem;color:var(--muted)">Base: 551 respondentes que já compraram</span>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:#F3F4F6;border-radius:8px;padding:4px 9px;margin-bottom:12px;font-size:0.65rem;color:#6B7280;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;margin-bottom:12px;font-size:0.65rem;color:#9ca3af;font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
     <div style="display:flex;gap:6px;margin-bottom:14px" id="jornadaTabs">
@@ -613,7 +626,7 @@
     <div class="card-hdr" style="margin-bottom:6px">
       <div class="card-title">O que Importa em Uma Construtora</div>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:#F3F4F6;border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:#6B7280;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:#9ca3af;font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
     <div id="construtoraAtrib"></div>
@@ -631,7 +644,7 @@
     <div class="card-hdr" style="margin-bottom:6px">
       <div class="card-title">Sentimentos por Cidade — Mapa de Calor</div>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:#F3F4F6;border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:#6B7280;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:#9ca3af;font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
     <div id="heatmapContainer"></div>
@@ -642,7 +655,7 @@
     <div class="card-hdr" style="margin-bottom:6px">
       <div class="card-title">Metragem: Hoje vs Sonho por Perfil</div>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:#F3F4F6;border-radius:8px;padding:4px 9px;margin-bottom:12px;font-size:0.65rem;color:#6B7280;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;margin-bottom:12px;font-size:0.65rem;color:#9ca3af;font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
     <div style="display:flex;gap:14px;margin-bottom:12px;font-size:0.68rem;color:var(--muted)">
@@ -942,6 +955,23 @@ function hideTip() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// SCROLL ANIMATION UTILITY
+// ─────────────────────────────────────────────────────────────────────────────
+function observeAnimate(el, fn, delay) {
+  if (!el) return;
+  delay = delay || 60;
+  const obs = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        setTimeout(fn, delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+  obs.observe(el);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // RENDER
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1027,6 +1057,7 @@ function renderBarChart(d) {
     const body = document.createElement('div');
     body.className = 'bar-body' + (bar.style === 'striped' ? ' striped' : '');
     body.style.height = '0px';
+    body.setAttribute('data-target-h', targetH);
     if (bar.style !== 'striped') body.style.background = COLOR_MAP[bar.style] || '#D4A0A4';
 
     const tag = document.createElement('div');
@@ -1041,8 +1072,11 @@ function renderBarChart(d) {
     col.appendChild(body);
     col.appendChild(lbl);
     wrap.appendChild(col);
-
-    setTimeout(() => { body.style.height = targetH + 'px'; }, 80);
+  });
+  observeAnimate(wrap, function() {
+    wrap.querySelectorAll('.bar-body[data-target-h]').forEach(function(b, i) {
+      setTimeout(function() { b.style.height = b.getAttribute('data-target-h') + 'px'; }, i * 60);
+    });
   });
 }
 
@@ -1135,12 +1169,11 @@ function renderBottomLeft(d) {
         <div class="prog-pct">${a.pct}%</div>`;
       content.appendChild(bar);
     });
-    // Animate bars
-    setTimeout(() => {
-      content.querySelectorAll('.prog-bar').forEach(b => {
-        b.style.width = b.dataset.w + '%';
+    observeAnimate(content, function() {
+      content.querySelectorAll('.prog-bar').forEach(function(b, i) {
+        setTimeout(function() { b.style.width = b.dataset.w + '%'; }, i * 60);
       });
-    }, 80);
+    });
   }
 }
 
@@ -1159,15 +1192,25 @@ function renderDonut(d) {
   const bg = mkCircle(svg, cx, cy, R, '#F3F4F6', SW);
   svg.appendChild(bg);
 
+  const segCircles = [];
   let cum = 0;
   segs.forEach(seg => {
     if (seg.pct === 0) { cum += seg.pct; return; }
     const dash = (seg.pct / 100) * C;
     const c = mkCircle(svg, cx, cy, R, seg.color, SW);
-    c.setAttribute('stroke-dasharray', `${dash} ${C - dash}`);
+    c.style.strokeDasharray = `0 ${C}`;
+    c.style.transition = 'stroke-dasharray 0.7s cubic-bezier(0.4,0,0.2,1)';
     c.setAttribute('transform', `rotate(${-90 + cum * 3.6}, ${cx}, ${cy})`);
     svg.appendChild(c);
+    segCircles.push({ el: c, dash, gap: C - dash });
     cum += seg.pct;
+  });
+  observeAnimate(svg, function() {
+    segCircles.forEach(function(s, i) {
+      setTimeout(function() {
+        s.el.style.strokeDasharray = `${s.dash} ${s.gap}`;
+      }, i * 80);
+    });
   });
 
   // Center text — biggest segment
@@ -1321,10 +1364,10 @@ function openAnaliseModal() {
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1">
-              <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;margin-bottom:4px;">
+              <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:4px;">
                 <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
               </div>
-              ${!isTotal ? `<div style="background:#F3F4F6;border-radius:10px;overflow:hidden;">
+              ${!isTotal ? `<div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
                 <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
               </div>` : ''}
             </div>
@@ -1367,7 +1410,7 @@ function openCompararModal() {
             <div class="hbar-fill" data-w="${w}"
               style="width:0%;height:10px;background:${isActive ? '#662e33' : '#D4A0A4'};border-radius:10px;"></div>
           </div>
-          <div class="hbar-pct" style="${isActive ? '' : 'color:#6B7280'}">${pct}%</div>`;
+          <div class="hbar-pct" style="${isActive ? '' : 'color:#9ca3af'}">${pct}%</div>`;
         body.appendChild(row);
       });
 
@@ -1426,10 +1469,10 @@ function openDetalharModal() {
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1">
-              <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;margin-bottom:4px;">
+              <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:4px;">
                 <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
               </div>
-              <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;">
+              <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
                 <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
               </div>
             </div>
@@ -1640,9 +1683,9 @@ function openStatModal(cardId) {
             <div style="width:38px;height:38px;border-radius:50%;background:${p.bg};color:${p.bgText||'#fff'};display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0">${p.initials}</div>
             <div style="flex:1">
               <div style="font-size:0.85rem;font-weight:700;margin-bottom:4px">${makeTip(p.label)}</div>
-              <div style="font-size:0.75rem;color:#6B7280;line-height:1.55;margin-bottom:8px">${p.desc}</div>
+              <div style="font-size:0.75rem;color:#9ca3af;line-height:1.55;margin-bottom:8px">${p.desc}</div>
               <div style="display:flex;flex-wrap:wrap;gap:6px">
-                ${p.tags.map(t => `<span style="background:#F3F4F6;border-radius:20px;padding:3px 9px;font-size:0.68rem;font-weight:600;color:#374151">${t}</span>`).join('')}
+                ${p.tags.map(t => `<span style="background:rgba(255,255,255,0.1);border-radius:20px;padding:3px 9px;font-size:0.68rem;font-weight:600;color:var(--text)">${t}</span>`).join('')}
               </div>
             </div>`;
           body.appendChild(card);
@@ -1674,10 +1717,10 @@ function openStatModal(cardId) {
             </div>
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="flex:1">
-                <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;margin-bottom:4px;">
+                <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:4px;">
                   <div class="hbar-fill" data-w="${(cp/max*100).toFixed(1)}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
                 </div>
-                <div style="background:#F3F4F6;border-radius:10px;overflow:hidden;">
+                <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
                   <div class="hbar-fill" data-w="${(tp/max*100).toFixed(1)}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
                 </div>
               </div>
@@ -1696,15 +1739,15 @@ function openStatModal(cardId) {
           const row = document.createElement('div');
           row.style.cssText = 'display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #F3F4F6;';
           row.innerHTML = `
-            <div style="width:38px;height:38px;border-radius:10px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">${t.icon}</div>
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">${t.icon}</div>
             <div>
               <div style="font-size:0.85rem;font-weight:700;margin-bottom:3px">${t.label}</div>
-              <div style="font-size:0.75rem;color:#6B7280">${t.desc}</div>
+              <div style="font-size:0.75rem;color:#9ca3af">${t.desc}</div>
             </div>`;
           body.appendChild(row);
         });
         const note = document.createElement('div');
-        note.style.cssText = 'margin-top:14px;padding:12px;background:#F3F4F6;border-radius:12px;font-size:0.75rem;color:#6B7280;';
+        note.style.cssText = 'margin-top:14px;padding:12px;background:rgba(255,255,255,0.08);border-radius:12px;font-size:0.75rem;color:#9ca3af;';
         note.innerHTML = '<strong style="color:#662e33">Base não ponderada:</strong> 1.000 respondentes · Nordeste do Brasil · 2024';
         body.appendChild(note);
       });
@@ -1757,9 +1800,11 @@ function renderJornada(tab) {
       <div class="prog-pct">${item.pct}%</div>`;
     container.appendChild(row);
   });
-  setTimeout(() => {
-    container.querySelectorAll('.prog-bar').forEach(b => { b.style.width = b.dataset.w + '%'; });
-  }, 60);
+  observeAnimate(container, function() {
+    container.querySelectorAll('.prog-bar').forEach(function(b, i) {
+      setTimeout(function() { b.style.width = b.dataset.w + '%'; }, i * 60);
+    });
+  });
 }
 
 function renderConstrutora() {
@@ -1778,29 +1823,31 @@ function renderConstrutora() {
       <div class="prog-pct">${item.pct}%</div>`;
     c.appendChild(row);
   });
-  setTimeout(() => {
-    c.querySelectorAll('.prog-bar').forEach(b => { b.style.width = b.dataset.w + '%'; });
-  }, 60);
+  observeAnimate(c, function() {
+    c.querySelectorAll('.prog-bar').forEach(function(b, i) {
+      setTimeout(function() { b.style.width = b.dataset.w + '%'; }, i * 60);
+    });
+  });
 
   const m = document.getElementById('marcaMD');
   m.innerHTML = '';
   const funnel = document.createElement('div');
   funnel.style.cssText = 'display:flex;gap:8px;margin-bottom:14px;align-items:center;';
   funnel.innerHTML = `
-    <div style="flex:1;background:#F3F4F6;border-radius:12px;padding:10px;text-align:center">
+    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center">
       <div style="font-size:1.3rem;font-weight:800;color:#662e33">4,9%</div>
-      <div style="font-size:0.63rem;color:#6B7280;margin-top:2px;line-height:1.4">Moram em<br>imóvel MD</div>
+      <div style="font-size:0.63rem;color:#9ca3af;margin-top:2px;line-height:1.4">Moram em<br>imóvel MD</div>
     </div>
-    <div style="color:#6B7280;font-size:1rem">→</div>
-    <div style="flex:1;background:#F3F4F6;border-radius:12px;padding:10px;text-align:center">
+    <div style="color:#9ca3af;font-size:1rem">→</div>
+    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center">
       <div style="font-size:1.3rem;font-weight:800;color:#662e33">7,0%</div>
-      <div style="font-size:0.63rem;color:#6B7280;margin-top:2px;line-height:1.4">Querem MD na<br>próxima compra</div>
+      <div style="font-size:0.63rem;color:#9ca3af;margin-top:2px;line-height:1.4">Querem MD na<br>próxima compra</div>
     </div>
     <div style="background:#F5EAEB;color:#662e33;font-size:0.68rem;font-weight:800;padding:4px 8px;border-radius:8px;white-space:nowrap">+43%</div>`;
   m.appendChild(funnel);
 
   const awTitle = document.createElement('div');
-  awTitle.style.cssText = 'font-size:0.72rem;font-weight:600;color:#6B7280;margin-bottom:8px';
+  awTitle.style.cssText = 'font-size:0.72rem;font-weight:600;color:#9ca3af;margin-bottom:8px';
   awTitle.textContent = 'Reconhecimento de Marca por Cidade';
   m.appendChild(awTitle);
 
@@ -1817,9 +1864,11 @@ function renderConstrutora() {
       <div class="hbar-pct">${item.pct}%</div>`;
     m.appendChild(row);
   });
-  setTimeout(() => {
-    m.querySelectorAll('.hbar-fill[data-w]').forEach(el => { el.style.width = el.dataset.w + '%'; });
-  }, 60);
+  observeAnimate(m, function() {
+    m.querySelectorAll('.hbar-fill[data-w]').forEach(function(el, i) {
+      setTimeout(function() { el.style.width = el.dataset.w + '%'; }, i * 60);
+    });
+  });
 }
 
 function renderHeatmap() {
@@ -1832,20 +1881,20 @@ function renderHeatmap() {
   const hdr = document.createElement('div');
   hdr.style.cssText = 'display:grid;grid-template-columns:72px repeat(7,1fr);gap:3px;margin-bottom:4px;';
   hdr.innerHTML = '<div></div>' + cityNames.map(n =>
-    `<div style="font-size:0.58rem;font-weight:700;color:#6B7280;text-align:center">${n}</div>`
+    `<div style="font-size:0.58rem;font-weight:700;color:#9ca3af;text-align:center">${n}</div>`
   ).join('');
   container.appendChild(hdr);
 
   sentLabels.forEach((sent, si) => {
     const row = document.createElement('div');
     row.style.cssText = 'display:grid;grid-template-columns:72px repeat(7,1fr);gap:3px;margin-bottom:3px;align-items:center;';
-    let cells = `<div style="font-size:0.63rem;color:#374151;font-weight:600;line-height:1.3">${sent}</div>`;
+    let cells = `<div style="font-size:0.63rem;color:#e8eaed;font-weight:600;line-height:1.3">${sent}</div>`;
     cityKeys.forEach(ck => {
       const pct = DATA[ck].sentimentos[si];
       const intensity = Math.min(pct / 58, 1);
       const alpha = 0.1 + intensity * 0.9;
       cells += `<div style="background:rgba(102,46,51,${alpha.toFixed(2)});border-radius:4px;height:26px;display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:0.57rem;font-weight:700;color:${intensity > 0.4 ? '#fff' : '#662e33'}">${pct}%</span>
+        <span style="font-size:0.57rem;font-weight:700;color:${intensity > 0.3 ? '#fff' : '#D4A0A4'}">${pct}%</span>
       </div>`;
     });
     row.innerHTML = cells;
@@ -1867,22 +1916,24 @@ function renderMetragemPerfil() {
         <div style="font-size:0.75rem;font-weight:700">${makeTip(p.label)}</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
-        <div style="flex:1;background:#F3F4F6;border-radius:8px;overflow:hidden;">
+        <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;">
           <div class="prog-bar" data-w="${atualW}" style="width:0%;height:8px;background:${p.color};border-radius:8px;transition:width 0.55s cubic-bezier(0.34,1.2,0.64,1)"></div>
         </div>
-        <div style="font-size:0.68rem;font-weight:700;color:#374151;width:34px;text-align:right">${p.atual}m²</div>
+        <div style="font-size:0.68rem;font-weight:700;color:var(--text);width:34px;text-align:right">${p.atual}m²</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <div style="flex:1;background:#F3F4F6;border-radius:8px;overflow:hidden;">
+        <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;">
           <div class="prog-bar" data-w="${idealW}" style="width:0%;height:8px;background:${p.color};opacity:0.35;border-radius:8px;transition:width 0.55s cubic-bezier(0.34,1.2,0.64,1)"></div>
         </div>
         <div style="font-size:0.68rem;font-weight:500;color:#9CA3AF;width:34px;text-align:right">${p.ideal}m²</div>
       </div>`;
     container.appendChild(row);
   });
-  setTimeout(() => {
-    container.querySelectorAll('.prog-bar').forEach(b => { b.style.width = b.dataset.w + '%'; });
-  }, 60);
+  observeAnimate(container, function() {
+    container.querySelectorAll('.prog-bar').forEach(function(b, i) {
+      setTimeout(function() { b.style.width = b.dataset.w + '%'; }, i * 60);
+    });
+  });
 }
 
 // ─── Jornada tab clicks ────────────────────────────────────────────────────────
