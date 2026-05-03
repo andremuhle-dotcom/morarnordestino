@@ -30,7 +30,7 @@
         radial-gradient(ellipse at 15% 40%, rgba(102,46,51,0.14) 0%, transparent 55%),
         radial-gradient(ellipse at 85% 10%, rgba(102,46,51,0.08) 0%, transparent 45%);
       color: var(--text);
-      padding: 28px calc(380px + 32px) 28px 32px;
+      padding: 28px calc(304px + 32px) 28px 32px;
       min-height: 100vh;
     }
 
@@ -337,7 +337,7 @@
     /* ── Chat Sidebar ── */
     #chatPanel {
       position: fixed; right: 0; top: 0;
-      width: 380px; height: 100vh;
+      width: 304px; height: 100vh;
       background: rgba(14,17,22,0.97);
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border-left: 1px solid rgba(255,255,255,0.09);
@@ -767,18 +767,18 @@
     <div id="chatHeader-icon">💬</div>
     <div>
       <div style="font-weight:700;font-size:0.88rem;color:var(--text)">Assistente da Pesquisa</div>
-      <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">BOX+MD · Nordeste 2024</div>
+      <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">O Morar Nordestino (24-25).</div>
     </div>
   </div>
 
   <div id="chatMessages">
     <div class="chat-msg chat-ai">
-      Olá! Posso responder qualquer dúvida sobre os dados da pesquisa habitacional BOX+MD. O que você gostaria de saber?
+      Olá, posso responder qualquer dúvida sobre os dados da pesquisa. O que você gostaria de saber?
     </div>
     <div id="chatSuggestions">
-      <button class="chat-suggestion" onclick="sendSuggestion(this)">Qual cidade tem mais Porto Seguro?</button>
-      <button class="chat-suggestion" onclick="sendSuggestion(this)">Quais os principais motivos de compra?</button>
-      <button class="chat-suggestion" onclick="sendSuggestion(this)">Como a MD é percebida nas cidades?</button>
+      <button class="chat-suggestion" onclick="sendSuggestion(this)">Quais as preferências dos clientes em Fortaleza?</button>
+      <button class="chat-suggestion" onclick="sendSuggestion(this)">O que se espera das áreas comuns em Recife?</button>
+      <button class="chat-suggestion" onclick="sendSuggestion(this)">Como a Moura Dubeux é percebida na Bahia?</button>
     </div>
   </div>
 
