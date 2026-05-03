@@ -63,7 +63,8 @@
     /* ── Stats Row ── */
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
 
-    .scard { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; position: relative; }
+    .scard { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .scard:not(.dark):hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.45); border-color: rgba(255,255,255,0.18); }
     .scard.dark { background: var(--g1); color: #fff; }
 
     .scard-icon {
@@ -93,7 +94,8 @@
     .mgrid { display: grid; grid-template-columns: 1.35fr 0.75fr 1fr; gap: 14px; margin-bottom: 14px; }
     .bgrid { display: grid; grid-template-columns: 1.2fr 0.95fr 0.85fr; gap: 14px; }
 
-    .card { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; }
+    .card { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.45); border-color: rgba(255,255,255,0.18); }
     .card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 18px; }
     .card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     .card-hdr .card-title { margin-bottom: 0; }
@@ -476,6 +478,60 @@
       .stats { grid-template-columns: 1fr; }
       .scard-num { font-size: 2.4rem; }
     }
+
+    /* ── Demographic Section ── */
+    .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+    .demo-filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .demo-chip {
+      padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05);
+      color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.18s;
+    }
+    .demo-chip.active { background: var(--g1); color: #fff; border-color: var(--g1); }
+    .demo-chip:hover:not(.active) { border-color: var(--g3); color: var(--g4); }
+    .demo-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .demo-bar-lbl { font-size: 0.75rem; font-weight: 600; width: 100px; flex-shrink: 0; transition: color 0.2s; }
+    .demo-bar-track { flex: 1; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
+    .demo-bar-fill { height: 10px; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s; }
+    .demo-bar-pct { font-size: 0.75rem; font-weight: 700; color: var(--g4); width: 36px; text-align: right; flex-shrink: 0; transition: color 0.2s; }
+    .demo-insight {
+      margin-top: 14px; padding: 12px 14px; border-radius: 12px;
+      background: rgba(102,46,51,0.18); border: 1px solid rgba(102,46,51,0.3);
+      font-size: 0.75rem; line-height: 1.6; color: var(--text);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .demo-insight.visible { opacity: 1; transform: translateY(0); }
+    .demo-insight-title { font-weight: 700; color: var(--g4); margin-bottom: 4px; font-size: 0.8rem; }
+
+    /* ── MD Section ── */
+    .md-grid { display: grid; grid-template-columns: 0.8fr 1.4fr 0.8fr; gap: 28px; align-items: start; }
+    .md-funnel { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .md-funnel-box {
+      width: 100%; text-align: center; padding: 16px 12px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+    }
+    .md-funnel-num { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -1px; }
+    .md-funnel-lbl { font-size: 0.65rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+    .md-arrow { color: var(--muted); font-size: 1.4rem; }
+    .md-badge-grow {
+      background: rgba(102,46,51,0.4); color: var(--g4);
+      font-size: 0.75rem; font-weight: 800; padding: 5px 12px;
+      border-radius: 100px; border: 1px solid rgba(102,46,51,0.5);
+    }
+    .md-insight-box {
+      background: rgba(102,46,51,0.15); border: 1px solid rgba(102,46,51,0.3);
+      border-radius: 14px; padding: 16px;
+    }
+    .md-insight-num { font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -1px; line-height: 1; }
+    .md-insight-label { font-size: 0.72rem; color: var(--g4); font-weight: 600; margin-top: 4px; }
+    .md-insight-text { font-size: 0.73rem; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .demo-grid { grid-template-columns: 1fr; }
+      .md-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -601,6 +657,22 @@
 
   </div>
 
+<!-- PERFIL DOS RESPONDENTES -->
+<div class="demo-grid">
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">Faixa Etária</div></div>
+    <div class="demo-filter-row" id="ageFilters"></div>
+    <div id="ageBars"></div>
+    <div class="demo-insight" id="ageInsight"></div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><div class="card-title">Classe Social</div></div>
+    <div class="demo-filter-row" id="classFilters"></div>
+    <div id="classBars"></div>
+    <div class="demo-insight" id="classInsight"></div>
+  </div>
+</div>
+
 <!-- ANÁLISE AVANÇADA -->
 <div class="agrid1">
 
@@ -621,7 +693,7 @@
     <div id="jornadaContent"></div>
   </div>
 
-  <!-- O que importa em construtora + MD brand -->
+  <!-- O que importa em construtora -->
   <div class="card">
     <div class="card-hdr" style="margin-bottom:6px">
       <div class="card-title">O que Importa em Uma Construtora</div>
@@ -630,11 +702,19 @@
       🌐 Dados regionais — base 1.000
     </div>
     <div id="construtoraAtrib"></div>
-    <div style="height:1px;background:var(--border);margin:16px 0"></div>
-    <div style="font-size:0.78rem;font-weight:700;margin-bottom:10px">Percepção Moura Dubeux</div>
-    <div id="marcaMD"></div>
   </div>
 
+</div>
+
+<!-- PERCEPÇÃO MOURA DUBEUX (card standalone) -->
+<div class="card" style="margin-top:14px" id="mdCard">
+  <div class="card-hdr" style="margin-bottom:20px">
+    <div class="card-title" style="font-size:1.05rem">Percepção Moura Dubeux</div>
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+      🌐 Dados regionais — base 1.000
+    </div>
+  </div>
+  <div class="md-grid" id="mdContent"></div>
 </div>
 
 <div class="agrid2">
@@ -955,6 +1035,48 @@ function hideTip() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// ANIMATED COUNT UTILITY
+// ─────────────────────────────────────────────────────────────────────────────
+function animateCount(id, rawVal, delay) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  delay = delay || 0;
+  var str = String(rawVal).trim();
+  var suffix = '';
+  var clean = str;
+  if (clean.endsWith('%')) { suffix = '%'; clean = clean.slice(0, -1); }
+  else if (clean.endsWith('+')) { suffix = '+'; clean = clean.slice(0, -1); }
+  var hasDecimal  = clean.indexOf(',') !== -1;
+  var hasThousand = clean.indexOf('.') !== -1;
+  var numeric = parseFloat(clean.replace(/\./g, '').replace(',', '.'));
+  if (isNaN(numeric) || numeric === 0) { el.textContent = rawVal; return; }
+  var decimals = hasDecimal ? clean.split(',')[1].length : 0;
+  function fmt(v) {
+    var s = v.toFixed(decimals);
+    if (hasDecimal) s = s.replace('.', ',');
+    if (hasThousand) {
+      var parts = s.split(hasDecimal ? ',' : '.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      s = hasDecimal ? parts.join(',') : parts[0];
+    }
+    return s + suffix;
+  }
+  el.textContent = fmt(0);
+  setTimeout(function() {
+    var start = performance.now();
+    var dur = 900;
+    function tick(now) {
+      var t = Math.min((now - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - t, 3);
+      el.textContent = fmt(numeric * ease);
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = rawVal;
+    }
+    requestAnimationFrame(tick);
+  }, delay);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // SCROLL ANIMATION UTILITY
 // ─────────────────────────────────────────────────────────────────────────────
 function observeAnimate(el, fn, delay) {
@@ -978,35 +1100,35 @@ function observeAnimate(el, fn, delay) {
 function renderStats(d) {
   if (d.isTotal) {
     setText('sc1-label', 'Total de Respondentes');
-    setText('sc1-num',   '1.000');
+    animateCount('sc1-num', '1.000', 180);
     setText('sc1-badge', '↑ Nordeste do Brasil');
 
     setText('sc2-label', 'Cidades Pesquisadas');
-    setText('sc2-num',   '7');
+    animateCount('sc2-num', '7', 240);
     setText('sc2-badge', 'SSA · REC · FOR · ...');
 
     setText('sc3-label', 'Perfis Comportamentais');
-    setText('sc3-num',   '5');
+    animateCount('sc3-num', '5', 300);
     setText('sc3-badge', 'Mapeados na pesquisa');
 
     setText('sc4-label', 'Perguntas do Survey');
-    setText('sc4-num',   '35+');
+    animateCount('sc4-num', '35+', 360);
     setText('sc4-note',  'Base não ponderada: n=1.000');
   } else {
     setText('sc1-label', `Respondentes em ${d.name}`);
-    setText('sc1-num',   d.n.toString());
+    animateCount('sc1-num', d.n.toString(), 180);
     setText('sc1-badge', '↑ ' + d.name);
 
     setText('sc2-label', 'Metragem Média');
-    setText('sc2-num',   d.metragem);
+    animateCount('sc2-num', d.metragem, 240);
     setText('sc2-badge', 'metros quadrados');
 
     setText('sc3-label', 'Passam mais tempo à noite');
-    setText('sc3-num',   d.noite + '%');
+    animateCount('sc3-num', d.noite + '%', 300);
     setText('sc3-badge', 'da amostra da cidade');
 
     setText('sc4-label', 'Descanso e Lazer em casa');
-    setText('sc4-num',   d.lazer + '%');
+    animateCount('sc4-num', d.lazer + '%', 360);
     setText('sc4-note',  'atividade principal em casa');
   }
 }
@@ -1082,7 +1204,7 @@ function renderBarChart(d) {
 
 function renderInsight(d) {
   const s = d.mainSentimento;
-  setText('insightPct',   s.pct + '%');
+  animateCount('insightPct', s.pct + '%', 200);
   setText('insightTitle', s.label);
 
   const subs = {
@@ -1228,7 +1350,7 @@ function renderDonut(d) {
 }
 
 function renderDarkCard(d) {
-  setText('dcMetragem', d.metragem);
+  animateCount('dcMetragem', d.metragem, 300);
   const row = document.getElementById('dcRow');
   const stats = [
     { num: d.noite + '%',  desc: 'passam mais<br>tempo à noite' },
@@ -1828,47 +1950,176 @@ function renderConstrutora() {
       setTimeout(function() { b.style.width = b.dataset.w + '%'; }, i * 60);
     });
   });
+}
 
-  const m = document.getElementById('marcaMD');
-  m.innerHTML = '';
-  const funnel = document.createElement('div');
-  funnel.style.cssText = 'display:flex;gap:8px;margin-bottom:14px;align-items:center;';
-  funnel.innerHTML = `
-    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center">
-      <div style="font-size:1.3rem;font-weight:800;color:#fff">4,9%</div>
-      <div style="font-size:0.63rem;color:#9ca3af;margin-top:2px;line-height:1.4">Moram em<br>imóvel MD</div>
-    </div>
-    <div style="color:#9ca3af;font-size:1rem">→</div>
-    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:12px;padding:10px;text-align:center">
-      <div style="font-size:1.3rem;font-weight:800;color:#fff">7,0%</div>
-      <div style="font-size:0.63rem;color:#9ca3af;margin-top:2px;line-height:1.4">Querem MD na<br>próxima compra</div>
-    </div>
-    <div style="background:rgba(102,46,51,0.4);color:#D4A0A4;font-size:0.68rem;font-weight:800;padding:4px 8px;border-radius:8px;white-space:nowrap">+43%</div>`;
-  m.appendChild(funnel);
+// ─────────────────────────────────────────────────────────────────────────────
+// DEMOGRAPHIC SECTION
+// ─────────────────────────────────────────────────────────────────────────────
+const AGE_DATA = [
+  { label: '25–34 anos', pct: 42.1, color: '#662e33' },
+  { label: '35–44 anos', pct: 29.5, color: '#8B3D43' },
+  { label: '45–54 anos', pct: 15.9, color: '#B06068' },
+  { label: '55+ anos',   pct: 12.5, color: '#D4A0A4' },
+];
+const CLASS_DATA = [
+  { label: 'Classe A', pct: 36.1, color: '#662e33' },
+  { label: 'Classe B', pct: 37.0, color: '#8B3D43' },
+  { label: 'Classe C', pct: 26.9, color: '#B06068' },
+];
+const AGE_INSIGHTS = {
+  '25–34 anos': { icon: '🚀', title: 'O grupo mais ativo', text: 'Maior grupo da pesquisa (42%). Mais abertos a novo estilo de vida e inovação tecnológica. Segurança é o principal motivador de compra e o sentimento de Porto Seguro já é muito forte nesta faixa.' },
+  '35–44 anos': { icon: '🏡', title: 'Consolidando a vida', text: 'Foco em espaço e família — maior demanda por metragem. Alta probabilidade de já ter comprado o primeiro imóvel e estar buscando o upgrade. Localização afetiva pesa bastante na decisão.' },
+  '45–54 anos': { icon: '✨', title: 'Conforto em primeiro lugar', text: 'Priorizam qualidade de acabamento e conforto sobre preço. Localização em bairros conhecidos é decisiva. Menor sensibilidade a tendências e maior foco em bem-estar duradouro.' },
+  '55+ anos':   { icon: '❤️', title: 'Proximidade e estabilidade', text: 'Menor grupo da pesquisa (12,5%). Prioridade absoluta em estar perto da família e de serviços essenciais. Porto Seguro atinge o pico como sentimento nesta faixa etária.' },
+};
+const CLASS_INSIGHTS = {
+  'Classe A': { icon: '⬆️', title: 'Alto padrão e diferenciação', text: 'Maior metragem atual e sonhada. Perfis voltados a status e inovação são dominantes. Apresentam o maior índice de reconhecimento e consideração da Moura Dubeux como construtora.' },
+  'Classe B': { icon: '⚖️', title: 'O maior e mais diverso grupo', text: 'Grupo mais representado (37%). Distribuição equilibrada entre todos os perfis comportamentais. Segurança e necessidade de espaço lideram como motivadores de compra.' },
+  'Classe C': { icon: '🎯', title: 'Pragmatismo e custo-benefício', text: 'Perfil econômico-essencialista é dominante. Maior desafio na jornada: dificuldade de pagamento e documentação. Metragem sonhada menor, mas o desejo de melhoria é igualmente real.' },
+};
 
-  const awTitle = document.createElement('div');
-  awTitle.style.cssText = 'font-size:0.72rem;font-weight:600;color:#9ca3af;margin-bottom:8px';
-  awTitle.textContent = 'Reconhecimento de Marca por Cidade';
-  m.appendChild(awTitle);
-
-  const maxM = Math.max(...MD_AWARENESS.map(a => a.pct));
-  MD_AWARENESS.forEach((item, i) => {
+function buildDemoBars(containerId, data, activeLabel) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  const max = Math.max(...data.map(d => d.pct));
+  data.forEach(function(item) {
+    const isActive = activeLabel === item.label;
     const row = document.createElement('div');
-    row.className = 'hbar-row';
-    row.style.marginBottom = '6px';
+    row.className = 'demo-bar-row';
     row.innerHTML = `
-      <div class="hbar-city-lbl" style="width:90px">${item.city}</div>
-      <div class="hbar-track">
-        <div class="hbar-fill" data-w="${(item.pct/maxM*100).toFixed(1)}" style="width:0%;height:8px;background:${COLORS[Math.min(i,5)]};border-radius:10px;"></div>
+      <div class="demo-bar-lbl" style="${isActive ? 'color:#fff;font-weight:700' : ''}">${item.label}</div>
+      <div class="demo-bar-track">
+        <div class="demo-bar-fill" data-w="${(item.pct/max*100).toFixed(1)}"
+          style="width:0%;background:${item.color};opacity:${isActive ? '1' : '0.45'}"></div>
       </div>
-      <div class="hbar-pct">${item.pct}%</div>`;
-    m.appendChild(row);
+      <div class="demo-bar-pct" style="${isActive ? 'color:#fff;font-weight:700' : ''}">${item.pct}%</div>`;
+    c.appendChild(row);
   });
-  observeAnimate(m, function() {
-    m.querySelectorAll('.hbar-fill[data-w]').forEach(function(el, i) {
-      setTimeout(function() { el.style.width = el.dataset.w + '%'; }, i * 60);
+  observeAnimate(c, function() {
+    c.querySelectorAll('.demo-bar-fill[data-w]').forEach(function(el, i) {
+      setTimeout(function() { el.style.width = el.dataset.w + '%'; }, i * 80);
     });
   });
+}
+
+function showDemoInsight(insightId, insightData, label) {
+  const box = document.getElementById(insightId);
+  if (!label || !insightData[label]) {
+    box.classList.remove('visible');
+    return;
+  }
+  const d = insightData[label];
+  box.innerHTML = `<div class="demo-insight-title">${d.icon} ${d.title}</div>${d.text}`;
+  box.classList.add('visible');
+}
+
+function renderDemoSection() {
+  // Age
+  buildDemoBars('ageBars', AGE_DATA, null);
+  document.getElementById('ageFilters').innerHTML = AGE_DATA.map(function(d) {
+    return `<button class="demo-chip" onclick="selectDemoFilter('age','${d.label}')" data-val="${d.label}">${d.label}</button>`;
+  }).join('');
+  // Class
+  buildDemoBars('classBars', CLASS_DATA, null);
+  document.getElementById('classFilters').innerHTML = CLASS_DATA.map(function(d) {
+    return `<button class="demo-chip" onclick="selectDemoFilter('class','${d.label}')" data-val="${d.label}">${d.label}</button>`;
+  }).join('');
+}
+
+function selectDemoFilter(type, val) {
+  if (type === 'age') {
+    const chips = document.querySelectorAll('#ageFilters .demo-chip');
+    var current = null;
+    chips.forEach(function(c) {
+      if (c.dataset.val === val && !c.classList.contains('active')) {
+        c.classList.add('active'); current = val;
+      } else {
+        c.classList.remove('active');
+      }
+    });
+    buildDemoBars('ageBars', AGE_DATA, current);
+    showDemoInsight('ageInsight', AGE_INSIGHTS, current);
+  } else {
+    const chips = document.querySelectorAll('#classFilters .demo-chip');
+    var current = null;
+    chips.forEach(function(c) {
+      if (c.dataset.val === val && !c.classList.contains('active')) {
+        c.classList.add('active'); current = val;
+      } else {
+        c.classList.remove('active');
+      }
+    });
+    buildDemoBars('classBars', CLASS_DATA, current);
+    showDemoInsight('classInsight', CLASS_INSIGHTS, current);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MD STANDALONE SECTION
+// ─────────────────────────────────────────────────────────────────────────────
+function renderMDSection() {
+  const COLORS = ['#662e33','#8B3D43','#B06068','#D4A0A4','#c5c5c7','#D1D5DB'];
+  const container = document.getElementById('mdContent');
+  container.innerHTML = '';
+
+  // Col 1 — Funil
+  const col1 = document.createElement('div');
+  col1.className = 'md-funnel';
+  col1.innerHTML = `
+    <div class="md-funnel-box">
+      <div class="md-funnel-num">4,9%</div>
+      <div class="md-funnel-lbl">Moram em<br>imóvel MD</div>
+    </div>
+    <div class="md-arrow">↓</div>
+    <div class="md-badge-grow">+43% em consideração</div>
+    <div class="md-arrow">↓</div>
+    <div class="md-funnel-box">
+      <div class="md-funnel-num">7,0%</div>
+      <div class="md-funnel-lbl">Querem MD na<br>próxima compra</div>
+    </div>`;
+  container.appendChild(col1);
+
+  // Col 2 — Barras de reconhecimento
+  const col2 = document.createElement('div');
+  const maxM = Math.max(...MD_AWARENESS.map(a => a.pct));
+  col2.innerHTML = `<div style="font-size:0.8rem;font-weight:700;margin-bottom:14px;color:var(--text)">Reconhecimento por Cidade</div>`;
+  MD_AWARENESS.forEach(function(item, i) {
+    const row = document.createElement('div');
+    row.className = 'hbar-row';
+    row.style.marginBottom = '10px';
+    row.innerHTML = `
+      <div class="hbar-city-lbl" style="width:100px;font-size:0.78rem">${item.city}</div>
+      <div class="hbar-track">
+        <div class="hbar-fill" data-w="${(item.pct/maxM*100).toFixed(1)}"
+          style="width:0%;height:12px;background:${COLORS[Math.min(i,5)]};border-radius:10px;"></div>
+      </div>
+      <div class="hbar-pct" style="font-size:0.8rem;font-weight:700">${item.pct}%</div>`;
+    col2.appendChild(row);
+  });
+  container.appendChild(col2);
+  observeAnimate(col2, function() {
+    col2.querySelectorAll('.hbar-fill[data-w]').forEach(function(el, i) {
+      setTimeout(function() { el.style.width = el.dataset.w + '%'; }, i * 70);
+    });
+  });
+
+  // Col 3 — Insight
+  const col3 = document.createElement('div');
+  col3.innerHTML = `
+    <div class="md-insight-box">
+      <div class="md-insight-num">Recife</div>
+      <div class="md-insight-label">Cidade com maior reconhecimento</div>
+      <div class="md-insight-text" style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px">
+        <span style="color:#D4A0A4;font-weight:700">50%</span> dos respondentes em Recife conhecem a MD — o dobro de João Pessoa (31%).
+      </div>
+      <div class="md-insight-text">
+        O funil de marca mostra <span style="color:#D4A0A4;font-weight:700">+43%</span> de crescimento em consideração: de 4,9% que já moram em imóvel MD para 7,0% que querem na próxima compra.
+      </div>
+      <div class="md-insight-text">
+        Maior oportunidade de expansão: <span style="color:#D4A0A4;font-weight:700">Salvador, Fortaleza e João Pessoa</span>, onde o reconhecimento ainda está abaixo de 33%.
+      </div>
+    </div>`;
+  container.appendChild(col3);
 }
 
 function renderHeatmap() {
@@ -1949,6 +2200,8 @@ document.getElementById('jornadaTabs').addEventListener('click', e => {
 renderDashboard('total');
 renderJornada('fatores');
 renderConstrutora();
+renderMDSection();
+renderDemoSection();
 renderHeatmap();
 renderMetragemPerfil();
 
