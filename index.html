@@ -699,8 +699,11 @@
 <div class="card" style="margin-top:14px" id="ambientesCard">
   <div class="card-hdr" style="margin-bottom:16px">
     <div class="card-title" style="font-size:1.05rem">O que Esperam de Cada Ambiente</div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
-      🏠 Básico × Diferencial × Desnecessário
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+        🏠 Básico × Diferencial × Desnecessário
+      </div>
+      <div class="local-badge"></div>
     </div>
   </div>
   <div class="amb-tabs" id="ambTabs">
@@ -718,15 +721,25 @@
 </div>
 
 <!-- PERFIL DOS RESPONDENTES -->
-<div class="demo-grid">
+<div class="demo-grid" id="demoGrid">
   <div class="card">
-    <div class="card-hdr"><div class="card-title">Faixa Etária</div></div>
+    <div class="card-hdr">
+      <div class="card-title">Faixa Etária</div>
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+        🌐 Dados regionais — base 1.000
+      </div>
+    </div>
     <div class="demo-filter-row" id="ageFilters"></div>
     <div id="ageBars"></div>
     <div class="demo-insight" id="ageInsight"></div>
   </div>
   <div class="card">
-    <div class="card-hdr"><div class="card-title">Classe Social</div></div>
+    <div class="card-hdr">
+      <div class="card-title">Classe Social</div>
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+        🌐 Dados regionais — base 1.000
+      </div>
+    </div>
     <div class="demo-filter-row" id="classFilters"></div>
     <div id="classBars"></div>
     <div class="demo-insight" id="classInsight"></div>
@@ -1687,6 +1700,7 @@ document.getElementById('cityTabs').addEventListener('click', e => {
   currentCityKey = tab.dataset.city;
   renderDashboard(currentCityKey);
   renderAmbChart(true);
+  document.getElementById('demoGrid').style.display = currentCityKey === 'total' ? '' : 'none';
 });
 
 // ─── Button: Ver Análise Completa ─────────────────────────────────────────────
