@@ -700,6 +700,38 @@
 
   </div>
 
+<!-- PREFERÊNCIAS POR AMBIENTE -->
+<div class="card" style="margin-top:14px" id="ambientesCard">
+  <div class="card-hdr" style="margin-bottom:16px">
+    <div class="card-title" style="font-size:1.05rem">O que Esperam de Cada Ambiente</div>
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+      🏠 Básico × Diferencial × Desnecessário
+    </div>
+  </div>
+  <div class="amb-tabs" id="ambTabs">
+    <button class="amb-tab active" data-room="sala" onclick="setAmbRoom(this)">Sala de Estar</button>
+    <button class="amb-tab" data-room="cozinha" onclick="setAmbRoom(this)">Cozinha</button>
+    <button class="amb-tab" data-room="quarto" onclick="setAmbRoom(this)">Quarto</button>
+    <button class="amb-tab" data-room="banheiro" onclick="setAmbRoom(this)">Banheiro</button>
+  </div>
+  <div class="amb-cities" id="ambCities">
+    <button class="amb-city active" data-ci="0" onclick="setAmbCity(this)">Nordeste</button>
+    <button class="amb-city" data-ci="1" onclick="setAmbCity(this)">Aracaju</button>
+    <button class="amb-city" data-ci="2" onclick="setAmbCity(this)">João Pessoa</button>
+    <button class="amb-city" data-ci="3" onclick="setAmbCity(this)">Maceió</button>
+    <button class="amb-city" data-ci="4" onclick="setAmbCity(this)">Natal</button>
+    <button class="amb-city" data-ci="5" onclick="setAmbCity(this)">Recife</button>
+    <button class="amb-city" data-ci="6" onclick="setAmbCity(this)">Salvador</button>
+    <button class="amb-city" data-ci="7" onclick="setAmbCity(this)">Fortaleza</button>
+  </div>
+  <div class="amb-legend">
+    <span><div class="amb-dot" style="background:var(--g1)"></div>Básico</span>
+    <span><div class="amb-dot" style="background:#B06068"></div>Diferencial</span>
+    <span><div class="amb-dot" style="background:rgba(255,255,255,0.15)"></div>Desnecessário</span>
+  </div>
+  <div id="ambChart"></div>
+</div>
+
 <!-- PERFIL DOS RESPONDENTES -->
 <div class="demo-grid">
   <div class="card">
@@ -790,37 +822,6 @@
 
 </div>
 
-<!-- PREFERÊNCIAS POR AMBIENTE -->
-<div class="card" style="margin-top:14px" id="ambientesCard">
-  <div class="card-hdr" style="margin-bottom:16px">
-    <div class="card-title" style="font-size:1.05rem">O que Esperam de Cada Ambiente</div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
-      🏠 Básico × Diferencial × Desnecessário
-    </div>
-  </div>
-  <div class="amb-tabs" id="ambTabs">
-    <button class="amb-tab active" data-room="sala" onclick="setAmbRoom(this)">Sala de Estar</button>
-    <button class="amb-tab" data-room="cozinha" onclick="setAmbRoom(this)">Cozinha</button>
-    <button class="amb-tab" data-room="quarto" onclick="setAmbRoom(this)">Quarto</button>
-    <button class="amb-tab" data-room="banheiro" onclick="setAmbRoom(this)">Banheiro</button>
-  </div>
-  <div class="amb-cities" id="ambCities">
-    <button class="amb-city active" data-ci="0" onclick="setAmbCity(this)">Nordeste</button>
-    <button class="amb-city" data-ci="1" onclick="setAmbCity(this)">Aracaju</button>
-    <button class="amb-city" data-ci="2" onclick="setAmbCity(this)">João Pessoa</button>
-    <button class="amb-city" data-ci="3" onclick="setAmbCity(this)">Maceió</button>
-    <button class="amb-city" data-ci="4" onclick="setAmbCity(this)">Natal</button>
-    <button class="amb-city" data-ci="5" onclick="setAmbCity(this)">Recife</button>
-    <button class="amb-city" data-ci="6" onclick="setAmbCity(this)">Salvador</button>
-    <button class="amb-city" data-ci="7" onclick="setAmbCity(this)">Fortaleza</button>
-  </div>
-  <div class="amb-legend">
-    <span><div class="amb-dot" style="background:var(--g1)"></div>Básico</span>
-    <span><div class="amb-dot" style="background:#B06068"></div>Diferencial</span>
-    <span><div class="amb-dot" style="background:rgba(255,255,255,0.15)"></div>Desnecessário</span>
-  </div>
-  <div id="ambChart"></div>
-</div>
 
 </div><!-- /dash-content -->
 
