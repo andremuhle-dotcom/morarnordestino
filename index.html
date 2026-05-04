@@ -553,12 +553,7 @@
       cursor:pointer; transition:all 0.2s; font-family:inherit; }
     .amb-tab.active { background:var(--g1); color:#fff; border-color:var(--g1); }
     .amb-tab:hover:not(.active) { border-color:rgba(255,255,255,0.2); color:var(--text); }
-    .amb-cities { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:18px; }
-    .amb-city { padding:4px 11px; border-radius:12px; border:1px solid var(--border);
-      background:transparent; color:var(--muted); font-size:0.68rem; font-weight:600;
-      cursor:pointer; transition:all 0.2s; font-family:inherit; }
-    .amb-city.active { background:rgba(102,46,51,0.35); color:var(--g4); border-color:var(--g1); }
-    .amb-city:hover:not(.active) { color:var(--text); border-color:rgba(255,255,255,0.2); }
+
     .amb-legend { display:flex; gap:18px; font-size:0.68rem; color:var(--muted); margin-bottom:18px; }
     .amb-legend span { display:flex; align-items:center; gap:5px; }
     .amb-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
@@ -713,16 +708,6 @@
     <button class="amb-tab" data-room="cozinha" onclick="setAmbRoom(this)">Cozinha</button>
     <button class="amb-tab" data-room="quarto" onclick="setAmbRoom(this)">Quarto</button>
     <button class="amb-tab" data-room="banheiro" onclick="setAmbRoom(this)">Banheiro</button>
-  </div>
-  <div class="amb-cities" id="ambCities">
-    <button class="amb-city active" data-ci="0" onclick="setAmbCity(this)">Nordeste</button>
-    <button class="amb-city" data-ci="1" onclick="setAmbCity(this)">Aracaju</button>
-    <button class="amb-city" data-ci="2" onclick="setAmbCity(this)">João Pessoa</button>
-    <button class="amb-city" data-ci="3" onclick="setAmbCity(this)">Maceió</button>
-    <button class="amb-city" data-ci="4" onclick="setAmbCity(this)">Natal</button>
-    <button class="amb-city" data-ci="5" onclick="setAmbCity(this)">Recife</button>
-    <button class="amb-city" data-ci="6" onclick="setAmbCity(this)">Salvador</button>
-    <button class="amb-city" data-ci="7" onclick="setAmbCity(this)">Fortaleza</button>
   </div>
   <div class="amb-legend">
     <span><div class="amb-dot" style="background:var(--g1)"></div>Básico</span>
@@ -1701,6 +1686,7 @@ document.getElementById('cityTabs').addEventListener('click', e => {
   tab.classList.add('active');
   currentCityKey = tab.dataset.city;
   renderDashboard(currentCityKey);
+  renderAmbChart(true);
 });
 
 // ─── Button: Ver Análise Completa ─────────────────────────────────────────────
@@ -2338,7 +2324,13 @@ const AMB_DATA = {
   ],
 };
 
-let ambRoom = 'sala', ambCityIdx = 0;
+let ambRoom = 'sala';
+
+// Maps main city key → AMB_DATA column index
+const AMB_CITY_IDX = {
+  total: 0, aracaju: 1, joaopessoa: 2, maceio: 3,
+  natal: 4, recife: 5, salvador: 6, fortaleza: 7
+};
 
 function setAmbRoom(btn) {
   ambRoom = btn.dataset.room;
@@ -2346,24 +2338,19 @@ function setAmbRoom(btn) {
   renderAmbChart(true);
 }
 
-function setAmbCity(btn) {
-  ambCityIdx = parseInt(btn.dataset.ci);
-  document.querySelectorAll('.amb-city').forEach(function(b){ b.classList.toggle('active', b===btn); });
-  renderAmbChart(true);
-}
-
 function renderAmbChart(animate) {
   var container = document.getElementById('ambChart');
   if (!container) return;
+  var ci = AMB_CITY_IDX[currentCityKey] || 0;
   var items = AMB_DATA[ambRoom] || [];
   // Sort by Diferencial% descending for current city
-  var sorted = items.slice().sort(function(a,b){ return b[ambCityIdx+1][1] - a[ambCityIdx+1][1]; });
+  var sorted = items.slice().sort(function(a,b){ return b[ci+1][1] - a[ci+1][1]; });
 
   // Always render bars at width:0 first, then animate to final values
   var html = '';
   sorted.forEach(function(item) {
     var label = item[0];
-    var vals = item[ambCityIdx + 1];
+    var vals = item[ci + 1];
     var b = vals[0], d = vals[1], dn = vals[2];
     var bLabel  = b  >= 10 ? b+'%'  : '';
     var dLabel  = d  >= 10 ? d+'%'  : '';
@@ -2386,7 +2373,7 @@ function renderAmbChart(animate) {
       setTimeout(function() {
         var rows = container.querySelectorAll('.amb-row');
         sorted.forEach(function(item, i) {
-          var vals = item[ambCityIdx + 1];
+          var vals = item[ci + 1];
           var row = rows[i];
           if (!row) return;
           var segs = row.querySelectorAll('.amb-seg');
