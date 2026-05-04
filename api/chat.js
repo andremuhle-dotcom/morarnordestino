@@ -132,7 +132,60 @@ Média geral: atual 101,76m², ideal 123,04m² → gap de +21m²
 DISTRIBUIÇÃO POR CLASSE SOCIAL E FAIXA ETÁRIA
 ═══════════════════════════════════════════
 Classe social: Classe A 36,1%, Classe B 37,0%, Classe C 26,9%
-Faixa etária: 25–34 anos 42,1%, 35–44 anos 29,5%, 45–54 anos 15,9%, 55+ anos 12,5%`;
+Faixa etária: 25–34 anos 42,1%, 35–44 anos 29,5%, 45–54 anos 15,9%, 55+ anos 12,5%
+
+═══════════════════════════════════════════
+O QUE ESPERAM DE CADA AMBIENTE
+(Básico / Diferencial / Desnecessário — base 1.000 — total Nordeste)
+═══════════════════════════════════════════
+SALA DE ESTAR (P17):
+- Varanda gourmet: 21% Básico | 66% Diferencial | 12% Desnecessário ← mais aspiracional da sala
+- Janela ampla: 34% B | 63% D | 2% Dn
+- Ventilação cruzada: 36% B | 58% D | 4% Dn
+- Varanda integrada: 35% B | 55% D | 9% Dn
+- Infra ar-condicionado: 42% B | 53% D | 5% Dn
+- Espaço sala e jantar: 44% B | 53% D | 3% Dn
+- Cozinha integrada: 40% B | 52% D | 8% Dn
+- Varanda separada: 35% B | 51% D | 12% Dn
+- Tomadas maior amperagem: 42% B | 49% D | 7% Dn
+- Suporte para rede: 41% B | 43% D | 15% Dn
+- Lavabo: 51% B | 41% D | 7% Dn ← único item majoritariamente Básico
+
+COZINHA E ÁREA DE SERVIÇO (P18):
+- Bancada grande: 36% B | 58% D | 4% Dn ← mais aspiracional da cozinha
+- Ilha de cozinha: 31% B | 53% D | 13% Dn
+- Espaço 2 cubas: 32% B | 52% D | 15% Dn
+- Infra lava-louça: 45% B | 46% D | 8% Dn
+- Sep. cozinha/área serviço: 46% B | 48% D | 5% Dn
+- Despensa: 48% B | 48% D | 3% Dn
+- Banheiro de serviço: 42% B | 45% D | 12% Dn
+- Quarto de serviço: 36% B | 46% D | 17% Dn
+- Infraestrutura coifa: 44% B | 46% D | 8% Dn
+- Ponto de TV: 31% B | 48% D | 20% Dn
+- Muitas tomadas: 50% B | 46% D | 4% Dn ← básico supera diferencial
+- Mesa para refeições rápidas: 46% B | 39% D | 14% Dn
+
+QUARTO (P20):
+- Closet: 27% B | 67% D | 6% Dn ← item mais aspiracional de toda a pesquisa
+- Varanda no quarto: 23% B | 65% D | 12% Dn
+- Ar-cond. no closet: 25% B | 51% D | 23% Dn
+- Espaço home office: 44% B | 51% D | 5% Dn
+- Espaço poltronas/cadeiras: 47% B | 44% D | 8% Dn
+
+BANHEIRO (P23):
+- Duas pias na bancada: 26% B | 50% D | 23% Dn
+- Espaço para armários: 36% B | 54% D | 10% Dn
+- Bancada da pia ampla: 44% B | 52% D | 4% Dn
+- Acessibilidade: 36% B | 50% D | 13% Dn
+- Box de vidro: 51% B | 47% D | 2% Dn ← básico supera diferencial
+- Ventilação natural: 50% B | 47% D | 3% Dn ← básico supera diferencial
+- Chuveiro instalado: 54% B | 42% D | 3% Dn ← fortemente básico
+- Pia e vaso instalados: 57% B | 40% D | 3% Dn ← mais básico de toda a pesquisa
+- Chuveiro a gás: 33% B | 44% D | 21% Dn
+
+QUANTIDADE IDEAL DE CÔMODOS (total Nordeste):
+- Quartos ideais: maioria prefere 3 quartos
+- Banheiros ideais: maioria prefere 2–3 banheiros`;
 
   // Monta histórico de mensagens
   const messages = [];
