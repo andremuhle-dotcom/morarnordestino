@@ -17,18 +17,18 @@
       --g4: #D4A0A4;
       --g5: rgba(102,46,51,0.35);
       --bg: #1a1d23;
-      --card: rgba(255,255,255,0.07);
-      --text: #e8eaed;
-      --muted: #9ca3af;
-      --border: rgba(255,255,255,0.1);
+      --card: rgba(255,255,255,0.05);
+      --text: #e8eaf0;
+      --muted: rgba(232,234,240,0.55);
+      --border: rgba(255,255,255,0.08);
     }
 
     body {
       font-family: 'Outfit', -apple-system, sans-serif;
       background: #1a1d23;
       background-image:
-        radial-gradient(ellipse at 15% 40%, rgba(102,46,51,0.14) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 10%, rgba(102,46,51,0.08) 0%, transparent 45%);
+        radial-gradient(ellipse at 15% 40%, rgba(102,46,51,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 10%, rgba(102,46,51,0.10) 0%, transparent 45%);
       color: var(--text);
       padding: 28px calc(304px + 32px) 28px 32px;
       min-height: 100vh;
@@ -46,8 +46,8 @@
     }
     .city-tab {
       padding: 7px 16px; border-radius: 100px;
-      border: 1.5px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.05); color: var(--muted);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03); color: var(--muted);
       font-size: 0.78rem; font-weight: 600;
       cursor: pointer; font-family: inherit;
       transition: all 0.2s ease;
@@ -63,8 +63,8 @@
     /* ── Stats Row ── */
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
 
-    .scard { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
-    .scard:not(.dark):hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.45); border-color: rgba(255,255,255,0.18); }
+    .scard { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 2px 16px rgba(0,0,0,0.08); border-radius: 18px; padding: 22px; position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .scard:not(.dark):hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); border-color: rgba(255,255,255,0.18); }
     .scard.dark { background: var(--g1); color: #fff; }
 
     .scard-icon {
@@ -75,7 +75,7 @@
     }
     .scard-icon:hover { transform: scale(1.1); opacity: 0.75; }
     .scard.dark .scard-icon { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
-    .scard:not(.dark) .scard-icon { border: 1.5px solid rgba(255,255,255,0.2); color: var(--text); }
+    .scard:not(.dark) .scard-icon { border: 1.5px solid rgba(255,255,255,0.18); color: var(--text); }
 
     .scard-label { font-size: 0.8rem; font-weight: 500; margin-bottom: 14px; }
     .scard.dark .scard-label { color: rgba(255,255,255,0.8); }
@@ -87,21 +87,21 @@
       padding: 4px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
     }
     .scard.dark .scard-badge { background: rgba(255,255,255,0.18); color: #fff; }
-    .scard:not(.dark) .scard-badge { background: var(--g5); color: var(--g4); }
+    .scard:not(.dark) .scard-badge { background: rgba(102,46,51,0.1); color: var(--g1); }
     .scard-note { font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
 
     /* ── Grids ── */
     .mgrid { display: grid; grid-template-columns: 1.35fr 0.75fr 1fr; gap: 14px; margin-bottom: 14px; }
     .bgrid { display: grid; grid-template-columns: 1.2fr 0.95fr 0.85fr; gap: 14px; }
 
-    .card { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.3); border-radius: 18px; padding: 22px; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.45); border-color: rgba(255,255,255,0.18); }
+    .card { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); box-shadow: 0 2px 16px rgba(0,0,0,0.07); border-radius: 18px; padding: 22px; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); border-color: rgba(255,255,255,0.18); }
     .card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 18px; }
     .card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     .card-hdr .card-title { margin-bottom: 0; }
 
     .btn-sm {
-      background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
       border-radius: 100px; padding: 5px 13px;
       font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit;
       color: var(--text);
@@ -119,12 +119,12 @@
       transition: height 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
     }
     .bar-body.striped {
-      background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1) 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 9px);
+      background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.07), rgba(255,255,255,0.07) 3px, rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 9px);
     }
     .bar-tag {
       position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
       font-size: 0.65rem; font-weight: 700;
-      background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
       color: var(--text);
       padding: 2px 8px; border-radius: 20px; white-space: nowrap;
       box-shadow: 0 1px 6px rgba(0,0,0,0.3);
@@ -179,7 +179,7 @@
     .prog-row:last-child { border-bottom: none; }
     .prog-icon { font-size: 1rem; width: 28px; text-align: center; flex-shrink: 0; }
     .prog-label { font-size: 0.78rem; font-weight: 600; width: 140px; flex-shrink: 0; }
-    .prog-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
+    .prog-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; }
     .prog-bar { height: 100%; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.2,0.64,1); }
     .prog-pct { font-size: 0.75rem; font-weight: 700; color: var(--g4); width: 32px; text-align: right; flex-shrink: 0; }
 
@@ -257,7 +257,7 @@
     }
     .hbar-lbl  { width: 94px; font-size: 0.75rem; font-weight: 600; text-align: right; flex-shrink: 0; color: var(--text); }
     .hbar-city-lbl { width: 110px; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; color: var(--text); }
-    .hbar-track { flex: 1; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; position: relative; }
+    .hbar-track { flex: 1; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; position: relative; }
     .hbar-stack { display: flex; height: 10px; }
     .hbar-fill  { height: 10px; border-radius: 10px; transition: width 0.55s cubic-bezier(0.34,1.2,0.64,1); }
     .hbar-pct   { font-size: 0.75rem; font-weight: 700; color: var(--g4); width: 36px; text-align: right; flex-shrink: 0; }
@@ -278,21 +278,21 @@
     /* Local data badge */
     .local-badge {
       display: none; align-items: center; gap: 5px;
-      background: rgba(255,255,255,0.08); border-radius: 8px; padding: 4px 9px;
+      background: rgba(255,255,255,0.06); border-radius: 8px; padding: 4px 9px;
       margin-bottom: 12px; font-size: 0.65rem; color: var(--muted); font-weight: 600;
     }
     .local-badge.visible { display: inline-flex; }
     .local-badge-dark {
       display: none; align-items: center; gap: 5px;
-      background: rgba(255,255,255,0.12); border-radius: 8px; padding: 4px 9px;
-      margin-bottom: 8px; font-size: 0.65rem; color: rgba(255,255,255,0.65); font-weight: 600;
+      background: rgba(255,255,255,0.08); border-radius: 8px; padding: 4px 9px;
+      margin-bottom: 8px; font-size: 0.65rem; color: var(--muted); font-weight: 600;
     }
     .local-badge-dark.visible { display: inline-flex; }
 
     /* Jornada tabs */
     .jtab {
       padding: 5px 12px; border-radius: 100px;
-      border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03);
       color: var(--muted); font-size: 0.72rem; font-weight: 600;
       cursor: pointer; font-family: inherit; transition: all 0.15s;
     }
@@ -370,7 +370,7 @@
       max-width: 90%; padding: 10px 14px; border-radius: 16px;
       font-size: 0.82rem; line-height: 1.6;
     }
-    .chat-ai  { background: rgba(255,255,255,0.08); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-ai  { background: rgba(255,255,255,0.08); color: #e8eaf0; align-self: flex-start; border-bottom-left-radius: 4px; }
     .chat-user { background: var(--g1); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
     .chat-loading { background: rgba(255,255,255,0.08); align-self: flex-start; padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; }
     .chat-dots { display: flex; gap: 4px; }
@@ -497,14 +497,14 @@
     .demo-filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
     .demo-chip {
       padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
-      border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03);
       color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.18s;
     }
     .demo-chip.active { background: var(--g1); color: #fff; border-color: var(--g1); }
     .demo-chip:hover:not(.active) { border-color: var(--g3); color: var(--g4); }
     .demo-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .demo-bar-lbl { font-size: 0.75rem; font-weight: 600; width: 100px; flex-shrink: 0; transition: color 0.2s; }
-    .demo-bar-track { flex: 1; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
+    .demo-bar-track { flex: 1; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; }
     .demo-bar-fill { height: 10px; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s; }
     .demo-bar-pct { font-size: 0.75rem; font-weight: 700; color: var(--g4); width: 36px; text-align: right; flex-shrink: 0; transition: color 0.2s; }
     .demo-insight {
@@ -561,13 +561,13 @@
     .amb-label { width:210px; min-width:210px; font-size:0.73rem; color:var(--text); line-height:1.3; }
     .amb-bar-wrap { flex:1; }
     .amb-bar { display:flex; height:26px; border-radius:6px; overflow:hidden;
-      background:rgba(255,255,255,0.04); }
+      background:rgba(255,255,255,0.05); }
     .amb-seg { height:100%; display:flex; align-items:center; justify-content:center;
       font-size:0.62rem; font-weight:700; overflow:hidden; white-space:nowrap;
       transition:width 0.65s cubic-bezier(0.4,0,0.2,1); }
     .amb-seg-b { background:linear-gradient(90deg,#662e33,#8B3D43); color:rgba(255,255,255,0.92); }
     .amb-seg-d { background:linear-gradient(90deg,#B06068,#c98088); color:rgba(255,255,255,0.92); }
-    .amb-seg-dn { background:rgba(255,255,255,0.08); color:var(--muted); }
+    .amb-seg-dn { background:rgba(255,255,255,0.07); color:var(--muted); }
     .amb-sep { height:1px; background:var(--border); margin:14px 0; }
     @media (max-width:640px) {
       .amb-label { width:120px; min-width:120px; font-size:0.65rem; }
@@ -700,7 +700,7 @@
   <div class="card-hdr" style="margin-bottom:16px">
     <div class="card-title" style="font-size:1.05rem">O que Esperam de Cada Ambiente</div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:rgba(232,234,240,0.55);font-weight:600">
         🏠 Básico × Diferencial × Desnecessário
       </div>
       <div class="local-badge" style="margin-bottom:0"></div>
@@ -725,7 +725,7 @@
   <div class="card">
     <div class="card-hdr">
       <div class="card-title">Faixa Etária</div>
-      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:rgba(232,234,240,0.55);font-weight:600">
         🌐 Dados regionais — base 1.000
       </div>
     </div>
@@ -736,7 +736,7 @@
   <div class="card">
     <div class="card-hdr">
       <div class="card-title">Classe Social</div>
-      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+      <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:rgba(232,234,240,0.55);font-weight:600">
         🌐 Dados regionais — base 1.000
       </div>
     </div>
@@ -771,7 +771,7 @@
     <div class="card-hdr" style="margin-bottom:6px">
       <div class="card-title">O que Importa em Uma Construtora</div>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:rgba(232,234,240,0.55);font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
     <div id="construtoraAtrib"></div>
@@ -783,7 +783,7 @@
 <div class="card" style="margin-top:14px" id="mdCard">
   <div class="card-hdr" style="margin-bottom:20px">
     <div class="card-title" style="font-size:1.05rem">Percepção Moura Dubeux</div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:rgba(232,234,240,0.55);font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
   </div>
@@ -797,7 +797,7 @@
     <div class="card-hdr" style="margin-bottom:6px">
       <div class="card-title">Sentimentos por Cidade — Mapa de Calor</div>
     </div>
-    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:#9ca3af;font-weight:600">
+    <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px 9px;margin-bottom:14px;font-size:0.65rem;color:rgba(232,234,240,0.55);font-weight:600">
       🌐 Dados regionais — base 1.000
     </div>
     <div id="heatmapContainer"></div>
@@ -1005,7 +1005,7 @@ const MOTIVOS_EXTRA_META = [
   { label: 'Lazer para Crianças',     icon: '🎠',    bg: 'rgba(245,158,11,0.15)' },
   { label: 'Mais Serviços Próximos',  icon: '🏪',    bg: 'rgba(59,130,246,0.15)' },
   { label: 'Espaço em Área Comum',    icon: '🏋️',   bg: 'rgba(139,92,246,0.15)' },
-  { label: 'Mudança de Cidade',       icon: '🚚',    bg: 'rgba(255,255,255,0.1)' },
+  { label: 'Mudança de Cidade',       icon: '🚚',    bg: 'rgba(255,255,255,0.06)' },
 ];
 
 const SENT_LABELS = ['Porto Seg.', 'Aconchego', 'Realização', 'Recarga', 'Identidade', 'Praticidade', 'Social.'];
@@ -1396,7 +1396,7 @@ function renderDonut(d) {
   const segs = d.comodos.map((pct, i) => ({ pct, color: COMODO_COLORS[i] }));
 
   // Background ring
-  const bg = mkCircle(svg, cx, cy, R, 'rgba(255,255,255,0.08)', SW);
+  const bg = mkCircle(svg, cx, cy, R, 'rgba(255,255,255,0.06)', SW);
   svg.appendChild(bg);
 
   const segCircles = [];
@@ -1571,10 +1571,10 @@ function openAnaliseModal() {
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1">
-              <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:4px;">
+              <div style="background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:4px;">
                 <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
               </div>
-              ${!isTotal ? `<div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
+              ${!isTotal ? `<div style="background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
                 <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
               </div>` : ''}
             </div>
@@ -1676,10 +1676,10 @@ function openDetalharModal() {
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="flex:1">
-              <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:4px;">
+              <div style="background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:4px;">
                 <div class="hbar-fill" data-w="${cityW}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
               </div>
-              <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
+              <div style="background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
                 <div class="hbar-fill" data-w="${totalW}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
               </div>
             </div>
@@ -1926,10 +1926,10 @@ function openStatModal(cardId) {
             </div>
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="flex:1">
-                <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:4px;">
+                <div style="background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:4px;">
                   <div class="hbar-fill" data-w="${(cp/max*100).toFixed(1)}" style="width:0%;height:10px;background:#662e33;border-radius:10px;"></div>
                 </div>
-                <div style="background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
+                <div style="background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
                   <div class="hbar-fill" data-w="${(tp/max*100).toFixed(1)}" style="width:0%;height:6px;background:#D4A0A4;border-radius:10px;"></div>
                 </div>
               </div>
