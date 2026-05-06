@@ -703,7 +703,7 @@
       <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);border-radius:8px;padding:4px 9px;font-size:0.65rem;color:#9ca3af;font-weight:600">
         🏠 Básico × Diferencial × Desnecessário
       </div>
-      <div class="local-badge"></div>
+      <div class="local-badge" style="margin-bottom:0"></div>
     </div>
   </div>
   <div class="amb-tabs" id="ambTabs">
@@ -1198,7 +1198,7 @@ function renderStats(d) {
 
     setText('sc4-label', 'Perguntas do Survey');
     animateCount('sc4-num', '35+', 360);
-    setText('sc4-note',  'Base não ponderada: n=1.000');
+    setText('sc4-note',  '1.000 respondentes');
   } else {
     setText('sc1-label', `Respondentes em ${d.name}`);
     animateCount('sc1-num', d.n.toString(), 180);
@@ -1226,13 +1226,13 @@ function renderBarChart(d) {
   if (d.isTotal) {
     document.getElementById('barTitle').textContent = 'Distribuição por Cidade';
     bars = [
-      { label: 'SSA', pct: 31.1, tooltip: 'Salvador: n=311 (31,1%)',  style: 'dark' },
-      { label: 'REC', pct: 21.8, tooltip: 'Recife: n=218 (21,8%)',    style: 'medium' },
-      { label: 'FOR', pct: 20.7, tooltip: 'Fortaleza: n=207 (20,7%)', style: 'light' },
-      { label: 'MCZ', pct: 7.3,  tooltip: 'Maceió: n=73 (7,3%)',      style: 'striped' },
-      { label: 'JPA', pct: 7.2,  tooltip: 'João Pessoa: n=72 (7,2%)', style: 'striped' },
-      { label: 'NAT', pct: 7.0,  tooltip: 'Natal: n=70 (7,0%)',       style: 'striped' },
-      { label: 'AJU', pct: 4.9,  tooltip: 'Aracaju: n=49 (4,9%)',     style: 'striped' },
+      { label: 'SSA', pct: 31.1, tooltip: 'Salvador: 311 respondentes (31,1%)',  style: 'dark' },
+      { label: 'REC', pct: 21.8, tooltip: 'Recife: 218 respondentes (21,8%)',    style: 'medium' },
+      { label: 'FOR', pct: 20.7, tooltip: 'Fortaleza: 207 respondentes (20,7%)', style: 'light' },
+      { label: 'MCZ', pct: 7.3,  tooltip: 'Maceió: 73 respondentes (7,3%)',      style: 'striped' },
+      { label: 'JPA', pct: 7.2,  tooltip: 'João Pessoa: 72 respondentes (7,2%)', style: 'striped' },
+      { label: 'NAT', pct: 7.0,  tooltip: 'Natal: 70 respondentes (7,0%)',       style: 'striped' },
+      { label: 'AJU', pct: 4.9,  tooltip: 'Aracaju: 49 respondentes (4,9%)',     style: 'striped' },
     ];
   } else {
     document.getElementById('barTitle').textContent = 'Sentimentos sobre o Lar';
@@ -1850,7 +1850,7 @@ function openStatModal(cardId) {
             <div class="hbar-track">
               <div class="hbar-fill" data-w="${(c.pct/31.1*100).toFixed(1)}" style="width:0%;height:10px;background:${BAR_COLORS[i]};border-radius:10px;"></div>
             </div>
-            <div style="font-size:0.72rem;color:var(--muted);width:90px;text-align:right;flex-shrink:0">n=${c.n} · ${c.pct}%</div>`;
+            <div style="font-size:0.72rem;color:var(--muted);width:90px;text-align:right;flex-shrink:0">${c.n} respondentes · ${c.pct}%</div>`;
           body.appendChild(row);
         });
       });
@@ -1975,7 +1975,7 @@ document.addEventListener('click', e => {
 });
 
 function updateLocalBadges(d) {
-  const text = d.isTotal ? '' : `🏙️ Dados locais — base ${d.n}`;
+  const text = d.isTotal ? '' : `🏙️ Dados locais — ${d.n} respondentes`;
   document.querySelectorAll('.local-badge, .local-badge-dark').forEach(el => {
     if (d.isTotal) {
       el.classList.remove('visible');
