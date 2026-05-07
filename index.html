@@ -34,10 +34,20 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
-    .hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-    .hdr h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
-    .hdr p  { color: var(--muted); font-size: 0.875rem; margin-top: 5px; }
+    /* ── Header Banner ── */
+    .hdr-banner {
+      width: 100%; border-radius: 20px; overflow: hidden;
+      margin-bottom: 18px; position: relative;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+    }
+    .hdr-banner img {
+      width: 100%; display: block;
+      max-height: 220px; object-fit: cover; object-position: center 40%;
+    }
+    .hdr-banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.35) 100%);
+    }
 
     /* ── City Tabs ── */
     .city-tabs {
@@ -443,8 +453,7 @@
     @media (max-width: 768px) {
       body { padding: 18px 16px; }
 
-      .hdr h1 { font-size: 1.4rem; }
-      .hdr p  { font-size: 0.78rem; }
+      .hdr-banner img { max-height: 140px; }
 
       /* City tabs: scroll horizontal */
       .city-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
@@ -577,13 +586,10 @@
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="hdr">
-  <div>
-    <h1>Dashboard MDNE</h1>
-    <p>Pesquisa habitacional com moradores de apartamentos no Nordeste do Brasil.</p>
-  </div>
-  <!-- chat sidebar sempre visível no desktop -->
+<!-- HEADER BANNER -->
+<div class="hdr-banner">
+  <img src="/header.jpg" alt="Dashboard MDNE">
+  <div class="hdr-banner-overlay"></div>
 </div>
 
 <!-- CITY TABS -->
